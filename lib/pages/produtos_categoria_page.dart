@@ -3,7 +3,6 @@ import 'package:app_cliente/pages/produto_page.dart';
 import 'package:app_cliente/widgets/render_avaliacao_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ProdutosCategoriaPage extends StatefulWidget {
   final String categoria;
