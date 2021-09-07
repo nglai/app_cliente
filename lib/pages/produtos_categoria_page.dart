@@ -50,6 +50,7 @@ class _ProdutosCategoriaPageState extends State<ProdutosCategoriaPage> {
           }).toList();
 
           return ListView.builder(
+            physics: BouncingScrollPhysics(),
             itemCount: produtos.length,
             itemBuilder: (context, index) {
               final produto = produtos[index];
