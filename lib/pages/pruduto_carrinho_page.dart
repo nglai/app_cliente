@@ -25,33 +25,38 @@ class _ProdutoCarrinhoPageState extends State<ProdutoCarrinhoPage> {
         } else {
           pedido = pedidoController.pedido[index];
         }
-        return pedidoController.pedido.isEmpty
-            ? Center(
-                child: Lottie.network(
-                    'https://assets6.lottiefiles.com/temp/lf20_jzqS18.json'),
-              )
-            : Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Image.network(
-                      'https://images-americanas.b2w.io/produtos/01/00/img/3069544/7/3069544719_1GG.jpg'),
-                  Text('${pedido['nome']}'),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        pedidoController.pedido.remove(pedido);
-                      });
-                    },
-                    child: FaIcon(
-                      FontAwesomeIcons.solidTrashAlt,
-                      size: 15,
-                    ),
-                  ),
-                  Text('${pedido['preco']}'),
-                  Text('${pedido['quantidade']}'),
-                  Text('${pedido['precoTotal']}'),
-                ],
-              );
+        return AnimatedBuilder(
+          animation: pedidoController,
+          builder: (BuildContext context, Widget? child) {
+            return pedidoController.pedido.isEmpty
+                ? Center(
+                    child: Lottie.network(
+                        'https://assets6.lottiefiles.com/temp/lf20_jzqS18.json'),
+                  )
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Image.network(
+                          'https://images-americanas.b2w.io/produtos/01/00/img/3069544/7/3069544719_1GG.jpg'),
+                      Text('${pedido['nome']}'),
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            pedidoController.pedido.remove(pedido);
+                          });
+                        },
+                        child: FaIcon(
+                          FontAwesomeIcons.solidTrashAlt,
+                          size: 15,
+                        ),
+                      ),
+                      Text('${pedido['preco']}'),
+                      Text('${pedido['quantidade']}'),
+                      Text('${pedido['precoTotal']}'),
+                    ],
+                  );
+          },
+        );
       },
     );
   }

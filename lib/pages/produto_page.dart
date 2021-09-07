@@ -165,9 +165,8 @@ class _ProdutoPageState extends State<ProdutoPage> {
                         'nomeCliente': 'nomeClienteTeste',
                         'precoTotal': (valorTotal * quantidadeProdutos),
                       };
-                      setState(() {
-                        pedidoController.pedido.add(produto);
-                      });
+
+                      pedidoController.addProduto(produto);
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
