@@ -29,7 +29,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Color.fromRGBO(157, 78, 221, 1),
+      ),
       drawer: DrawerWidget(),
       body: telas[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(

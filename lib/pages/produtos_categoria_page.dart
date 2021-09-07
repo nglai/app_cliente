@@ -1,4 +1,5 @@
 import 'package:app_cliente/models/produto_model.dart';
+import 'package:app_cliente/pages/produto_page.dart';
 import 'package:app_cliente/widgets/render_avaliacao_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -87,7 +88,13 @@ class _ProdutosCategoriaPageState extends State<ProdutosCategoriaPage> {
                           ),
                           child: InkWell(
                             onTap: () {
-                              print('clicou');
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ProdutoPage(produto,
+                                      avaliacao, produto.avaliacao.length),
+                                ),
+                              );
                             },
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -116,7 +123,7 @@ class _ProdutosCategoriaPageState extends State<ProdutosCategoriaPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(5),
                                   child: Text(
-                                    'Em até 10x s/ juros de R\$ ${(produto.preco / 10).toStringAsFixed(2).toString()}',
+                                    'Em até 10x R\$ ${(produto.preco / 10).toStringAsFixed(2).toString()} s/ juros',
                                     style: TextStyle(fontSize: 16),
                                   ),
                                 ),
