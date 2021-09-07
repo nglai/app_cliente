@@ -1,3 +1,4 @@
+import 'package:app_cliente/pages/produtos_categoria_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -45,7 +46,15 @@ class DrawerWidget extends StatelessWidget {
                 ),
               ),
               leading: FaIcon(FontAwesomeIcons.listAlt),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        ProdutosCategoriaPage(categoria: 'Todos os produtos'),
+                  ),
+                );
+              },
             ),
           ),
           Container(
@@ -63,7 +72,15 @@ class DrawerWidget extends StatelessWidget {
                 ),
               ),
               leading: FaIcon(FontAwesomeIcons.mobileAlt),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        ProdutosCategoriaPage(categoria: 'Celulares'),
+                  ),
+                );
+              },
             ),
           ),
           Container(
@@ -81,7 +98,15 @@ class DrawerWidget extends StatelessWidget {
                 ),
               ),
               leading: FaIcon(FontAwesomeIcons.laptopCode),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        ProdutosCategoriaPage(categoria: 'Notebooks'),
+                  ),
+                );
+              },
             ),
           ),
           Container(
@@ -99,7 +124,15 @@ class DrawerWidget extends StatelessWidget {
                 ),
               ),
               leading: FaIcon(FontAwesomeIcons.tv),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        ProdutosCategoriaPage(categoria: 'Televisões'),
+                  ),
+                );
+              },
             ),
           ),
           Container(
@@ -117,7 +150,15 @@ class DrawerWidget extends StatelessWidget {
                 ),
               ),
               leading: FaIcon(FontAwesomeIcons.gamepad),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        ProdutosCategoriaPage(categoria: 'Video Games'),
+                  ),
+                );
+              },
             ),
           ),
         ],
