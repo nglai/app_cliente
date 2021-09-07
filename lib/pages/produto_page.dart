@@ -24,6 +24,7 @@ class _ProdutoPageState extends State<ProdutoPage> {
         backgroundColor: Color.fromRGBO(157, 78, 221, 1),
       ),
       body: ListView(
+        physics: BouncingScrollPhysics(),
         children: [
           Container(
             color: Colors.white,
@@ -144,7 +145,7 @@ class _ProdutoPageState extends State<ProdutoPage> {
                 ),
                 Container(
                   margin: EdgeInsets.only(bottom: 20),
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 120),
+                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 50),
                   child: ElevatedButton(
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(
