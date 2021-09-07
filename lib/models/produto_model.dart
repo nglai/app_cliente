@@ -13,6 +13,7 @@ class ProdutoModel {
   final bool promocao;
   final double precoDesconto;
   final int quantidade;
+  final List<dynamic> avaliacao;
   final Uint8List? imagem;
 
   ProdutoModel({
@@ -26,6 +27,7 @@ class ProdutoModel {
     required this.promocao,
     required this.precoDesconto,
     required this.quantidade,
+    required this.avaliacao,
     this.imagem,
   });
 
@@ -41,6 +43,7 @@ class ProdutoModel {
         promocao: map['promocao'],
         precoDesconto: map['precoDesconto'],
         quantidade: map['quantidade'],
+        avaliacao: map['avaliacao'],
         imagem: map['imagem']?.bytes,
       );
 
@@ -54,6 +57,7 @@ class ProdutoModel {
         'promocao': promocao,
         'precoDesconto': precoDesconto,
         'quantidade': quantidade,
+        'avaliacao': avaliacao,
         'imagem': imagem != null ? Blob(imagem!) : null,
       };
 }
