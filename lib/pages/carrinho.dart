@@ -13,34 +13,36 @@ class _CarrinhoState extends State<Carrinho> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: pedidoController.pedido.isEmpty
-            ? Center(
-                child: ProdutoCarrinhoPage(),
-              )
-            : ListView(
-                children: [
-                  ProdutoCarrinhoPage(),
-                  ElevatedButton(
-                    onPressed: () {
-                      final novoPedido = PedidoModel(
-                        clienteKey: '1213',
-                        pedido: pedidoController.pedido,
-                      ).toMap();
-                      FirebaseFirestore.instance
-                          .collection('pedidos')
-                          .add(novoPedido);
+      body: AnimatedBuilder(
+        animation: pedidoController,
+        builder: (BuildContext context, Widget? child) {
+          return pedidoController.pedido.isEmpty
+              ? Center(
+                  child: ProdutoCarrinhoPage(),
+                )
+              : ListView(
+                  children: [
+                    ProdutoCarrinhoPage(),
+                    ElevatedButton(
+                      onPressed: () {
+                        final novoPedido = PedidoModel(
+                          clienteKey: '1213',
+                          pedido: pedidoController.pedido,
+                        ).toMap();
+                        FirebaseFirestore.instance
+                            .collection('pedidos')
+                            .add(novoPedido);
 
-                      setState(() {
-                        pedidoController.pedido.clear();
-                      });
-
-                      AlertDialog(
-                        title: Text('Pedido realizado com sucesso.'),
-                      );
-                    },
-                    child: Text('Finalizar pedido'),
-                  ),
-                ],
-              ));
+                        setState(() {
+                          pedidoController.pedido.clear();
+                        });
+                      },
+                      child: Text('Finalizar pedido'),
+                    ),
+                  ],
+                );
+        },
+      ),
+    );
   }
 }
