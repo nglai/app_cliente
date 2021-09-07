@@ -1,12 +1,13 @@
-import 'package:app_cliente/models/produto_model.dart';
-import 'package:app_cliente/widgets/render_avaliacao_widget.dart';
+import '../models/produto_model.dart';
+import '../widgets/render_avaliacao_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../controllers/pedido_controller.dart';
 
 class ProdutoPage extends StatefulWidget {
   final ProdutoModel produto;
-  double avaliacao;
-  int qtAvaliacoes;
+  final double avaliacao;
+  final int qtAvaliacoes;
 
   ProdutoPage(this.produto, this.avaliacao, this.qtAvaliacoes);
 
@@ -15,7 +16,7 @@ class ProdutoPage extends StatefulWidget {
 }
 
 class _ProdutoPageState extends State<ProdutoPage> {
-  int contador = 1;
+  late int quantidadeProdutos = 1;
   @override
   Widget build(BuildContext context) {
     double valorTotal = widget.produto.preco;
@@ -50,7 +51,9 @@ class _ProdutoPageState extends State<ProdutoPage> {
                           IconButton(
                             onPressed: () {
                               setState(() {
-                                contador > 1 ? contador -= 1 : contador = 1;
+                                quantidadeProdutos > 1
+                                    ? quantidadeProdutos -= 1
+                                    : quantidadeProdutos = 1;
                               });
                             },
                             icon: FaIcon(
@@ -58,11 +61,11 @@ class _ProdutoPageState extends State<ProdutoPage> {
                               color: Color.fromRGBO(157, 78, 221, 1),
                             ),
                           ),
-                          Text('$contador'),
+                          Text('$quantidadeProdutos'),
                           IconButton(
                             onPressed: () {
                               setState(() {
-                                contador += 1;
+                                quantidadeProdutos += 1;
                               });
                             },
                             icon: FaIcon(
@@ -147,19 +150,34 @@ class _ProdutoPageState extends State<ProdutoPage> {
                   margin: EdgeInsets.only(bottom: 20),
                   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 50),
                   child: ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
-                        Color.fromRGBO(157, 78, 221, 1),
-                      )),
-                      onPressed: () {},
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Adicionar ao carrinho | R\$ ${valorTotal * contador}',
-                          ),
-                        ],
-                      )),
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                      Color.fromRGBO(157, 78, 221, 1),
+                    )),
+                    onPressed: () {
+                      final produto = {
+                        'nome': widget.produto.nome,
+                        'preco': widget.produto.preco,
+                        'quantidade': quantidadeProdutos,
+                        'keyVendedor': widget.produto.keyVendedor,
+                        'keyCliente': 'keyClienteTeste',
+                        'nomeVendedor': widget.produto.vendedor,
+                        'nomeCliente': 'nomeClienteTeste',
+                        'precoTotal': (valorTotal * quantidadeProdutos),
+                      };
+                      setState(() {
+                        pedidoController.pedido.add(produto);
+                      });
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Adicionar ao carrinho | R\$ ${valorTotal * quantidadeProdutos}',
+                        ),
+                      ],
+                    ),
+                  ),
                 )
               ],
             ),

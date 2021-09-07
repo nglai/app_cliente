@@ -16,7 +16,7 @@ class DrawerWidget extends StatelessWidget {
               Expanded(
                 child: Container(
                   color: Color.fromRGBO(157, 78, 221, 1),
-                  padding: EdgeInsets.all(15),
+                  padding: EdgeInsets.all(13.5),
                   child: Container(
                     child: Text(
                       'Categorias',

@@ -11,7 +11,7 @@ class _PerfilState extends State<Perfil> {
   @override
   Widget build(BuildContext context) {
     return Container(
-       child: Text('carrinho'),
+      child: Text('Perfil'),
     );
   }
 }
