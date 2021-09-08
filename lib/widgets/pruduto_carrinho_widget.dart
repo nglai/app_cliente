@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 
-class ProdutoCarrinhoPage extends StatefulWidget {
-  ProdutoCarrinhoPage({Key? key}) : super(key: key);
+class ProdutoCarrinhoWidget extends StatefulWidget {
+  ProdutoCarrinhoWidget({Key? key}) : super(key: key);
 
   @override
-  _ProdutoCarrinhoPageState createState() => _ProdutoCarrinhoPageState();
+  _ProdutoCarrinhoWidgetState createState() => _ProdutoCarrinhoWidgetState();
 }
 
-class _ProdutoCarrinhoPageState extends State<ProdutoCarrinhoPage> {
+class _ProdutoCarrinhoWidgetState extends State<ProdutoCarrinhoWidget> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -41,9 +41,7 @@ class _ProdutoCarrinhoPageState extends State<ProdutoCarrinhoPage> {
                       Text('${pedido['nome']}'),
                       InkWell(
                         onTap: () {
-                          setState(() {
-                            pedidoController.pedido.remove(pedido);
-                          });
+                          pedidoController.removeProduto(pedido);
                         },
                         child: FaIcon(
                           FontAwesomeIcons.solidTrashAlt,
