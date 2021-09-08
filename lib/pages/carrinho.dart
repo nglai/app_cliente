@@ -1,5 +1,5 @@
 import 'package:app_cliente/models/pedido_model.dart';
-import 'package:app_cliente/pages/pruduto_carrinho_page.dart';
+import 'package:app_cliente/widgets/pruduto_carrinho_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../controllers/pedido_controller.dart';
 import 'package:flutter/material.dart';
@@ -18,17 +18,19 @@ class _CarrinhoState extends State<Carrinho> {
         builder: (BuildContext context, Widget? child) {
           return pedidoController.pedido.isEmpty
               ? Center(
-                  child: ProdutoCarrinhoPage(),
+                  child: ProdutoCarrinhoWidget(),
                 )
               : ListView(
                   children: [
-                    ProdutoCarrinhoPage(),
+                    ProdutoCarrinhoWidget(),
                     ElevatedButton(
                       onPressed: () {
                         final novoPedido = PedidoModel(
                           clienteKey: '1213',
                           pedido: pedidoController.pedido,
+                          clienteNome: 'Teste',
                         ).toMap();
+
                         FirebaseFirestore.instance
                             .collection('pedidos')
                             .add(novoPedido);
@@ -36,6 +38,12 @@ class _CarrinhoState extends State<Carrinho> {
                         setState(() {
                           pedidoController.pedido.clear();
                         });
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Pedido realizado com sucesso.'),
+                          ),
+                        );
                       },
                       child: Text('Finalizar pedido'),
                     ),

@@ -160,9 +160,7 @@ class _ProdutoPageState extends State<ProdutoPage> {
                         'preco': widget.produto.preco,
                         'quantidade': quantidadeProdutos,
                         'keyVendedor': widget.produto.keyVendedor,
-                        'keyCliente': 'keyClienteTeste',
                         'nomeVendedor': widget.produto.vendedor,
-                        'nomeCliente': 'nomeClienteTeste',
                         'precoTotal': (valorTotal * quantidadeProdutos),
                       };
 
