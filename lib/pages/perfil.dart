@@ -13,6 +13,7 @@ class Perfil extends StatefulWidget {
 class _PerfilState extends State<Perfil> {
   @override
   Widget build(BuildContext context) {
+
   final textStyles = Theme.of(context).textTheme;
     return Scaffold(
        appBar: AppBar(
@@ -68,7 +69,6 @@ class _PerfilState extends State<Perfil> {
         ],
         )
          
-    );
     
     
   }
