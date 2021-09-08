@@ -1,5 +1,7 @@
+import 'package:app_cliente/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'historico.dart';
 import 'minha_conta.dart';
 
@@ -11,6 +13,8 @@ class Perfil extends StatefulWidget {
 }
 
 class _PerfilState extends State<Perfil> {
+  late final userController =
+      Provider.of<UserController>(context, listen: false);
   @override
   Widget build(BuildContext context) {
     final textStyles = Theme.of(context).textTheme;
@@ -42,7 +46,7 @@ class _PerfilState extends State<Perfil> {
                   height: 20,
                 ),
                 Text(
-                  "Olá, fulano!",
+                  "Olá, ${userController.model.nome}!",
                   style: textStyles.headline5,
                 ),
                 //quando userController tiver pronto:

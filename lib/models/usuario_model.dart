@@ -36,5 +36,6 @@ class UsuarioModel {
         'nascimento': nascimento,
         'endereco': endereco,
         'cep': cep,
+        'telefone': telefone
       };
 }
