@@ -1,8 +1,8 @@
 import 'package:app_cliente/controllers/user_controller.dart';
+import 'package:app_cliente/pages/historico_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'historico.dart';
 import 'minha_conta.dart';
 
 class Perfil extends StatefulWidget {
@@ -72,7 +72,7 @@ class _PerfilState extends State<Perfil> {
             trailing: FaIcon(FontAwesomeIcons.angleRight),
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Historico()));
+                  MaterialPageRoute(builder: (context) => HistoricoPage()));
             },
           )
         ],
