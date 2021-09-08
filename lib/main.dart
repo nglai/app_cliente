@@ -1,11 +1,9 @@
-import 'package:app_cliente/pages/menu_page.dart';
+import 'package:app_cliente/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 
 import 'controllers/user_controller.dart';
-import 'pages/cadastro_page.dart';
-import 'pages/login_pages.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +21,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: MenuPage(),
+        home: SplashPage(),
         debugShowCheckedModeBanner: false,
       ),
     );
