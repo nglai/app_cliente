@@ -23,12 +23,9 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: LoginPage(),
+        home: MenuPage(),
+        debugShowCheckedModeBanner: false,
       ),
-
-      home: MenuPage(),
-      debugShowCheckedModeBanner: false,
-
     );
   }
 }
