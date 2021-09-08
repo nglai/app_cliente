@@ -54,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                 validator: (String? texto) {
                   if (texto != null && texto.isNotEmpty) {
                     if (texto.length < 8) {
-                      return "Digite uma senha com 6 caracteres ou mais";
+                      return "Digite uma senha com 8 caracteres ou mais";
                     }
                   } else {
                     return "Campo obrigatório";
@@ -72,7 +72,6 @@ class _LoginPageState extends State<LoginPage> {
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: ElevatedButton(
-                  //reponsavel por fazer o login
                   onPressed: () async {
                     try {
                       await userController.login(email, senha);
