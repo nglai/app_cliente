@@ -68,6 +68,7 @@ class _HistoricoPageState extends State<HistoricoPage> {
 
           final pedidos = snapshot.data!.docs.map((map) {
             final data = map.data();
+            print(data);
             return PedidoModel.fromMap(data, map.id);
           }).toList();
 
@@ -77,164 +78,33 @@ class _HistoricoPageState extends State<HistoricoPage> {
               final pedido = pedidos[index];
               return Container(
                 color: Colors.white,
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    physics: BouncingScrollPhysics(),
-                    itemCount: pedido.pedido.length,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(10),
-                            color: Color.fromRGBO(224, 170, 255, 1),
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.stretch,
-                                        children: [
-                                          Text(
-                                            'Pedido: ${pedido.key}',
-                                            style: TextStyle(fontSize: 16),
-                                          ),
-                                          Text(
-                                            'Data da compra: 03/09/2021',
-                                            style: TextStyle(fontSize: 16),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'Status: Entregue',
-                                            style: TextStyle(fontSize: 20),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: [
-                                    pedido.pedido[index]['imagem'] != null
-                                        ? Container(
-                                            width: 300,
-                                            height: 300,
-                                            child: Image.memory(
-                                              pedido.pedido[index]['imagem']!,
-                                              width: 72,
-                                              fit: BoxFit.contain,
-                                            ),
-                                          )
-                                        : Container(
-                                            child: Icon(Icons.no_photography),
-                                            width: 72,
-                                            height: double.maxFinite,
-                                            color: Colors.blue,
-                                          ),
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Produto: ${pedido.pedido[index]['nome']}',
-                                      style: TextStyle(fontSize: 16),
-                                    ),
-                                    Text(
-                                      'Quantidade: ${pedido.pedido[index]['quantidade']}',
-                                      style: TextStyle(fontSize: 16),
-                                    ),
-                                    Text(
-                                      'Preco por unidade: R\$ ${pedido.pedido[index]['preco']}',
-                                      style: TextStyle(fontSize: 16),
-                                    ),
-                                    Text(
-                                      'Preco do pedido: R\$ ${pedido.pedido[index]['precoTotal']}',
-                                      style: TextStyle(fontSize: 16),
-                                    ),
-                                    Text(
-                                      'Vendido e entregue por ${pedido.pedido[index]['nomeVendedor']}',
-                                      style: TextStyle(fontSize: 16),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(0, 0, 20, 20),
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    int nota;
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          title: Text('Selecione uma nota'),
-                                          content: SingleChildScrollView(
-                                            child: SelectFormField(
-                                              type: SelectFormFieldType
-                                                  .dropdown, // or can be dialog
-                                              initialValue: '5',
-                                              labelText: 'Nota',
-                                              items: _items,
-                                              onChanged: (val) =>
-                                                  nota = int.parse(val),
-                                            ),
-                                          ),
-                                          actions: [
-                                            TextButton(
-                                                onPressed: () async {
-                                                  // final avaliacao = ProdutoModel(
+                child: Text(
+                  '${pedido.pedido[index]['nome']}',
+                ),
 
-                                                  // avaliacao: nota)
-                                                  // await FirebaseFirestore.instance.collection('produtos').doc(pedido.pedido[index]['keyProduto']).update();
-                                                },
-                                                child:
-                                                    Text('Confirmar avaliação'))
-                                          ],
-                                        );
-                                      },
-                                    );
-                                  },
-                                  child: Text('Avaliar produto'),
-                                  style: ButtonStyle(
-                                      backgroundColor:
-                                          MaterialStateProperty.all(
-                                    Color.fromRGBO(157, 78, 221, 1),
-                                  )),
-                                ),
-                              ),
-                            ],
-                          )
-                        ],
-                      );
-                    }),
+                // ListView.builder(
+                //   shrinkWrap: true,
+                //   physics: BouncingScrollPhysics(),
+                //   itemCount: 1,
+                //   itemBuilder: (context, index) {
+                //     return Column(
+                //       crossAxisAlignment: CrossAxisAlignment.stretch,
+                //       children: [
+                //         Container(
+                //             child: Column(
+                //           children: [
+                //             Text('${pedido.keyProduto}'),
+                //             Text('${pedido.imagem}'),
+                //             Text('${pedido.nome}'),
+                //             Text('${pedido.preco}'),
+                //             Text('${pedido.quantidadeProduto}'),
+                //             Text('${pedido.precoTotal}'),
+                //           ],
+                //         ))
+                //       ],
+                //     );
+                //   },
+                // ),
               );
             },
           );

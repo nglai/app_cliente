@@ -45,6 +45,8 @@ class _CarrinhoState extends State<Carrinho> {
                           pedidoController.pedido.clear();
                         });
 
+                        print(pedidoController.pedido);
+
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text('Pedido realizado com sucesso.'),
