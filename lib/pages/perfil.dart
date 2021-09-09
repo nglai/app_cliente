@@ -19,9 +19,6 @@ class _PerfilState extends State<Perfil> {
   Widget build(BuildContext context) {
     final textStyles = Theme.of(context).textTheme;
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Perfil'),
-      ),
       body: Column(
         children: [
           Container(

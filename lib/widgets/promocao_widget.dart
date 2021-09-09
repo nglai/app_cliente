@@ -1,4 +1,5 @@
 import 'package:app_cliente/models/produto_model.dart';
+import 'package:app_cliente/pages/produto_page.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -41,14 +42,20 @@ class _PromocaoWidgetState extends State<PromocaoWidget> {
                 autoPlay: true,
                 enlargeCenterPage: true,
                 autoPlayInterval: Duration(seconds: 4),
-                onPageChanged: (index, reason) => setState(() => activeIndex = index),
+                onPageChanged: (index, reason) =>
+                    setState(() => activeIndex = index),
               ),
-              itemCount: produtos.length,
+              itemCount: 1,
               itemBuilder: (context, index, pageView) {
                 final produto = produtos[index];
                 return InkWell(
                   onTap: () {
-                    print('Clicou');
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProdutoPage(produto,
+                              produto.avaliacao, produto.quantidadeAvaliacoes),
+                        ));
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
@@ -72,25 +79,36 @@ class _PromocaoWidgetState extends State<PromocaoWidget> {
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
                               height: 150,
-                              child: Image.asset('imagem.png'),
+                              child: produto.imagem != null
+                                  ? Image.memory(
+                                      produto.imagem!,
+                                      width: 200,
+                                      fit: BoxFit.contain,
+                                    )
+                                  : Container(
+                                      child: Icon(Icons.no_photography),
+                                      width: 72,
+                                      height: double.maxFinite,
+                                      color: Colors.blue,
+                                    ),
                             ),
                           ),
                           SizedBox(
                             height: 12,
                           ),
                           Text(
-                            produto.nome,
+                            produto.nome!,
                             style: TextStyle(fontSize: 22),
                           ),
                           SizedBox(
                             height: 18,
                           ),
-                          Text('R\$ ${produto.preco.toStringAsFixed(2)}',
+                          Text('R\$ ${produto.preco!.toStringAsFixed(2)}',
                               style: TextStyle(
                                   fontSize: 18,
                                   decoration: TextDecoration.lineThrough)),
                           Text(
-                            'R\$ ${(produto.preco - produto.precoDesconto).toStringAsFixed(2)}',
+                            'R\$ ${(produto.preco! - produto.precoDesconto!).toStringAsFixed(2)}',
                             style: TextStyle(
                                 fontSize: 22, fontWeight: FontWeight.bold),
                           )
@@ -101,8 +119,15 @@ class _PromocaoWidgetState extends State<PromocaoWidget> {
                 );
               },
             ),
-            SizedBox(height: 10,),
-            AnimatedSmoothIndicator(activeIndex: activeIndex, count: produtos.length, effect: JumpingDotEffect(activeDotColor: Color(0xFF9D4EDD), dotColor: Colors.black12)),
+            SizedBox(
+              height: 10,
+            ),
+            AnimatedSmoothIndicator(
+                activeIndex: activeIndex,
+                count: produtos.length,
+                effect: JumpingDotEffect(
+                    activeDotColor: Color(0xFF9D4EDD),
+                    dotColor: Colors.black12)),
           ],
         );
       },
