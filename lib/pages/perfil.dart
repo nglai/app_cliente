@@ -19,9 +19,6 @@ class _PerfilState extends State<Perfil> {
   Widget build(BuildContext context) {
     final textStyles = Theme.of(context).textTheme;
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Perfil'),
-      ),
       body: Column(
         children: [
           Container(
@@ -49,9 +46,7 @@ class _PerfilState extends State<Perfil> {
                   "Olá, ${userController.model.nome}!",
                   style: textStyles.headline5,
                 ),
-                //quando userController tiver pronto:
-                //CircleAvatar(userController.model.foto) ??? (confirmar)
-                //Text("Olá, ${userController.model.nome}!")
+
               ],
             ),
           ),
