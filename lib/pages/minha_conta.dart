@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+//import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MinhaConta extends StatefulWidget {
   MinhaConta({Key? key}) : super(key: key);
@@ -11,8 +11,6 @@ class MinhaConta extends StatefulWidget {
 class _MinhaContaState extends State<MinhaConta> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-       child: Text("oi")
-    );
+    return Container(child: Text("oi"));
   }
 }
