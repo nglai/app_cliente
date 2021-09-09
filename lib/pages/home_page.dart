@@ -1,3 +1,4 @@
+import 'package:app_cliente/widgets/lista_destaques_widget.dart';
 import 'package:app_cliente/widgets/promocao_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +16,7 @@ class _HomePageState extends State<HomePage> {
       body: ListView(
         children: [
           PromocaoWidget(),
+          Listadestaques(),
         ],
       ),
     );
