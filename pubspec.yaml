@@ -23,11 +23,24 @@ environment:
 dependencies:
   brasil_fields: ^1.1.4
   carousel_slider: ^4.0.0
-  cloud_firestore: ^2.5.1
   cupertino_icons: ^1.0.2
   date_format: ^2.0.4
   firebase_auth: ^3.1.0
   firebase_core: ^1.6.0
+  cloud_firestore: ^2.5.1
+  date_format: ^2.0.4
+  
+
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+
+  brasil_fields: ^1.1.4
+  get: ^4.3.8
+  provider: ^6.0.0
+  modal_bottom_sheet: ^2.0.0
+
+
   flutter:
     sdk: flutter
   font_awesome_flutter: ^9.1.0
@@ -37,6 +50,8 @@ dependencies:
   provider: ^6.0.0
   smooth_page_indicator: ^1.0.0+2
   select_form_field: "^2.2.0"
+  mask_text_input_formatter: ^2.0.0
+  
 
 dev_dependencies:
   flutter_test:
