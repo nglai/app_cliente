@@ -48,7 +48,6 @@ class ProdutoModel {
         precoDesconto: map['precoDesconto'],
         quantidade: map['quantidade'],
         avaliacao: map['avaliacao'],
-        quantidadeAvaliacoes: map['quantidadeAvaliacoes'],
         imagem: map['imagem']?.bytes,
       );
 
