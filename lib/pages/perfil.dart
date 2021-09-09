@@ -46,9 +46,7 @@ class _PerfilState extends State<Perfil> {
                   "Olá, ${userController.model.nome}!",
                   style: textStyles.headline5,
                 ),
-                //quando userController tiver pronto:
-                //CircleAvatar(userController.model.foto) ??? (confirmar)
-                //Text("Olá, ${userController.model.nome}!")
+
               ],
             ),
           ),
