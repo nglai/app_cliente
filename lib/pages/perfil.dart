@@ -71,6 +71,14 @@ class _PerfilState extends State<Perfil> {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => HistoricoPage()));
             },
+          ),
+          SizedBox(height: 20),
+          ListTile(
+            leading: FaIcon(FontAwesomeIcons.signOutAlt),
+            title: Text('Sair'),
+            onTap: () async {
+              await userController.logout();
+            },
           )
         ],
       ),

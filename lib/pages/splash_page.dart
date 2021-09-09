@@ -3,7 +3,7 @@ import 'package:app_cliente/pages/menu_page.dart';
 
 import '../controllers/user_controller.dart';
 import 'login_page.dart';
-import '../widgets/splash_loading_widget.dart';
+import '../widgets/splash_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
