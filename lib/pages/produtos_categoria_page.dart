@@ -53,13 +53,6 @@ class _ProdutosCategoriaPageState extends State<ProdutosCategoriaPage> {
             itemCount: produtos.length,
             itemBuilder: (context, index) {
               final produto = produtos[index];
-              double avaliacao = 0.0;
-
-              produto.avaliacao.forEach((element) {
-                avaliacao += element;
-              });
-
-              avaliacao = (avaliacao / produto.avaliacao.length);
 
               return Container(
                 color: Colors.white,
@@ -91,28 +84,40 @@ class _ProdutosCategoriaPageState extends State<ProdutosCategoriaPage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => ProdutoPage(produto,
-                                      avaliacao, produto.avaliacao.length),
+                                  builder: (context) => ProdutoPage(
+                                      produto,
+                                      produto.avaliacao,
+                                      produto.quantidadeAvaliacoes),
                                 ),
                               );
                             },
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                Image.network(
-                                    'https://images-americanas.b2w.io/produtos/01/00/img/3069544/7/3069544719_1GG.jpg'),
+                                produto.imagem != null
+                                    ? Image.memory(
+                                        produto.imagem!,
+                                        width: 72,
+                                        fit: BoxFit.contain,
+                                      )
+                                    : Container(
+                                        child: Icon(Icons.no_photography),
+                                        width: 72,
+                                        height: double.maxFinite,
+                                        color: Colors.blue,
+                                      ),
                                 Padding(
                                   padding: const EdgeInsets.all(5),
                                   child: Text(
-                                    produto.nome,
+                                    produto.nome!,
                                     style: TextStyle(fontSize: 20),
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(5),
-                                  child: RenderAvaliacaoWidget(
-                                      avaliacao, produto.avaliacao.length),
-                                ),
+                                    padding: const EdgeInsets.all(5),
+                                    child: RenderAvaliacaoWidget(
+                                        produto.avaliacao,
+                                        produto.quantidadeAvaliacoes)),
                                 Padding(
                                   padding: const EdgeInsets.all(5),
                                   child: Text(
@@ -123,7 +128,7 @@ class _ProdutosCategoriaPageState extends State<ProdutosCategoriaPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(5),
                                   child: Text(
-                                    'Em até 10x R\$ ${(produto.preco / 10).toStringAsFixed(2).toString()} s/ juros',
+                                    'Em até 10x R\$ ${(produto.preco! / 10).toStringAsFixed(2).toString()} s/ juros',
                                     style: TextStyle(fontSize: 16),
                                   ),
                                 ),

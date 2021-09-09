@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class CadastroPage extends StatefulWidget {
   // CadastroPage({Key? key}) : super(key: key);
@@ -14,8 +15,14 @@ class CadastroPage extends StatefulWidget {
 }
 
 class _CadastroPageState extends State<CadastroPage> {
-  //final _formKey = GlobalKey<FormState>();
+  TextEditingController txtcep = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
   TextEditingController _cpf = TextEditingController();
+  var maskNumber = new MaskTextInputFormatter(
+      mask: '(##)#.####-####)', filter: {"#": RegExp(r'[0-9]')});
+  var maskData = new MaskTextInputFormatter(
+      mask: '##/##/####', filter: {"#": RegExp(r'[0-9]')});
+
   String nome = "";
   String cpf = "";
   String nascimento = "";
@@ -41,6 +48,7 @@ class _CadastroPageState extends State<CadastroPage> {
         centerTitle: true,
       ),
       body: Form(
+        key: _formKey,
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
@@ -69,7 +77,6 @@ class _CadastroPageState extends State<CadastroPage> {
                 validator: (String? texto) {
                   String cpf = _cpf.text;
                   if (GetUtils.isCpf(cpf)) {
-                    return 'Cpf valido';
                   } else {
                     return 'cpf invalido';
                   }
@@ -88,6 +95,7 @@ class _CadastroPageState extends State<CadastroPage> {
                 ),
               ),
               TextFormField(
+                inputFormatters: [maskData],
                 onChanged: (texto) => nascimento = texto,
                 keyboardType: TextInputType.number,
                 autofocus: true,
@@ -128,6 +136,7 @@ class _CadastroPageState extends State<CadastroPage> {
                     return 'Informe seu telefone.';
                   }
                 },
+                inputFormatters: [maskNumber],
                 onChanged: (texto) => telefone = texto,
                 keyboardType: TextInputType.phone,
                 autofocus: true,
@@ -137,6 +146,7 @@ class _CadastroPageState extends State<CadastroPage> {
                 ),
               ),
               TextFormField(
+                controller: txtcep,
                 onChanged: (texto) => cep = texto,
                 keyboardType: TextInputType.number,
                 autofocus: true,
@@ -192,16 +202,19 @@ class _CadastroPageState extends State<CadastroPage> {
                   )),
               ElevatedButton(
                 onPressed: () async {
-                  final user = UsuarioModel(
-                    nome: nome,
-                    endereco: endereco,
-                    cpf: cpf,
-                    nascimento: nascimento,
-                    cep: cep,
-                    telefone: telefone,
-                  );
-                  await userController.signup(email, senha, user);
-                  Navigator.pop(context);
+                  if (_formKey.currentState?.validate() ?? false) {
+                    print('Login feito');
+                    final user = UsuarioModel(
+                      nome: nome,
+                      endereco: endereco,
+                      cpf: cpf,
+                      nascimento: nascimento,
+                      cep: cep,
+                      telefone: telefone,
+                    );
+                    await userController.signup(email, senha, user);
+                    Navigator.pop(context);
+                  }
                 },
                 child: Text("Criar conta"),
               )
