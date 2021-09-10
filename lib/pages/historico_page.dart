@@ -1,11 +1,9 @@
-
 import 'dart:ui';
 import 'package:app_cliente/controllers/user_controller.dart';
 import 'package:app_cliente/models/pedido_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:select_form_field/select_form_field.dart';
 
 class HistoricoPage extends StatefulWidget {
   HistoricoPage({Key? key}) : super(key: key);
@@ -24,11 +22,9 @@ class _HistoricoPageState extends State<HistoricoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
         title: Text('Histórico'),
         backgroundColor: Color.fromRGBO(157, 78, 221, 1),
       ),
-
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: FirebaseFirestore.instance
             .collection('pedidos')
@@ -44,14 +40,11 @@ class _HistoricoPageState extends State<HistoricoPage> {
             return PedidoModel.fromMap(data, map.id);
           }).toList();
 
-          pedidos.forEach((element) {
-            print(element.key);
-          });
-
           return ListView.builder(
-            itemCount: pedidos.length, //2
+            itemCount: pedidos.length, // 3
             itemBuilder: (context, index) {
-              final pedido = pedidos[index].produto;
+              print(index);
+              final produto = pedidos[index];
               return Container(
                 child: Column(
                   children: [
@@ -65,9 +58,9 @@ class _HistoricoPageState extends State<HistoricoPage> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('Pedido: ${pedidos[index].key}'),
+                                  Text('Pedido: ${produto.key}'),
                                   Text(
-                                      'Data da compra: ${pedido[index]['dataCompra']}'),
+                                      'Data da compra: ${produto.produto[0]['dataCompra']}'),
                                 ],
                               ),
                             ),
@@ -95,13 +88,14 @@ class _HistoricoPageState extends State<HistoricoPage> {
                     ListView.builder(
                       shrinkWrap: true,
                       physics: BouncingScrollPhysics(),
-                      itemCount: pedido.length, //3 //1
+                      itemCount: produto.produto.length, //3 //1 //2
                       itemBuilder: (context, index) {
+                        print('Print 102: ${pedidos[index].produto.length}');
                         return Container(
                           child: Column(
                             children: [
                               Text(
-                                '${pedido[index]['nome']}',
+                                '${produto.produto[index]['nome']}',
                               ),
                             ],
                           ),

@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'package:app_cliente/pages/home_page.dart';
 import 'package:app_cliente/pages/splash_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Splash extends StatefulWidget {
