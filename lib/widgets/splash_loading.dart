@@ -19,7 +19,11 @@ class SplashLoadingWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('assets/eletron2.gif'),
+            Image.asset(
+              'assets/eletron2.gif',
+              width: 110,
+              height: 500,
+            ),
             LinearProgressIndicator(
               color: Color(0xFF9d4edd),
             ),
