@@ -68,7 +68,7 @@ class _MinhaContaState extends State<MinhaConta> {
                               borderRadius: BorderRadius.circular(250),
                             )),
                         Container(
-                          padding: EdgeInsets.only(left: 20),
+                          padding: EdgeInsets.symmetric(horizontal: 20),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [

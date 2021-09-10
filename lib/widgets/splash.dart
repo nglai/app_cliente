@@ -1,6 +1,5 @@
 import 'dart:async';
-import 'package:app_cliente/pages/home_page.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:app_cliente/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 
 class Splash extends StatefulWidget {
@@ -13,11 +12,11 @@ class _SplashState extends State<Splash> {
   void initState() {
     super.initState();
 
-    Timer(Duration(seconds: 20), () {
+    Timer(Duration(seconds: 5), () {
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => HomePage(),
+            builder: (context) => SplashPage(),
           ));
     });
   }

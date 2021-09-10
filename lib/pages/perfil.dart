@@ -1,5 +1,7 @@
 import 'package:app_cliente/controllers/user_controller.dart';
+import 'package:app_cliente/models/usuario_model.dart';
 import 'package:app_cliente/pages/historico_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -21,34 +23,67 @@ class _PerfilState extends State<Perfil> {
     return Scaffold(
       body: Column(
         children: [
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(25),
-                  bottomRight: Radius.circular(25)),
-              color: Color.fromRGBO(224, 170, 255, 1),
-            ),
-            height: 200,
-            alignment: Alignment.center,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 25,
-                ),
-                CircleAvatar(
-                  child: FaIcon(FontAwesomeIcons.userNinja),
-                  radius: 50,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  "Olá, ${userController.model.nome}!",
-                  style: textStyles.headline5,
-                ),
+          StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+            stream: FirebaseFirestore.instance
+                .collection('usuarios')
+                .doc(userController.user!.uid)
+                .snapshots(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return Center(child: CircularProgressIndicator());
+              }
 
-              ],
-            ),
+              final usuarios = UsuarioModel.fromMap(snapshot.data!.data()!);
+
+              return Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(25),
+                      bottomRight: Radius.circular(25)),
+                  color: Color.fromRGBO(224, 170, 255, 1),
+                ),
+                height: 300,
+                alignment: Alignment.center,
+                child: Column(
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(
+                      height: 25,
+                    ),
+                    // CircleAvatar(
+                    //   child: usuarios.imagem != null ? Image.memory(usuarios.imagem!, fit: BoxFit.cover,) : Container(child: Icon(FontAwesomeIcons.userNinja)),
+                    //   radius: 50,
+                    // ),
+
+                    CircleAvatar(
+                        radius: 50,
+                        child: ClipRRect(
+                          child: usuarios.imagem != null
+                              ? Image.memory(
+                                  usuarios.imagem!,
+                                  fit: BoxFit.cover,
+                                  width: 100,
+                                )
+                              : FaIcon(FontAwesomeIcons.userNinja),
+                          borderRadius: BorderRadius.circular(250),
+                        )),
+
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      "Olá!",
+                      style: textStyles.headline5, textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      usuarios.nome,
+                      style: textStyles.headline5, textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              );
+            },
           ),
           SizedBox(height: 20),
           ListTile(
