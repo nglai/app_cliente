@@ -23,9 +23,9 @@ class UsuarioModel {
     this.imagem,
   });
 
-  static UsuarioModel fromMap(Map<String, dynamic> map) {
+  static UsuarioModel fromMap(Map<String, dynamic> map, [String? key]) {
     return UsuarioModel(
-      key: map['key'],
+      key: key,
       nome: map['nome'],
       cpf: map['cpf'],
       nascimento: map['nascimento'],
@@ -46,4 +46,6 @@ class UsuarioModel {
         'telefone': telefone,
         'imagem': imagem != null ? Blob(imagem!): null,
       };
+
+ 
 }
