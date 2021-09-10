@@ -12,7 +12,7 @@ class ProdutoModel {
   final String? nomeVendedor;
   final String? cor;
   final String? promocao;
-  final double? precoDesconto;
+  final String? precoDesconto;
   final int? quantidade;
   final int? avaliacao;
   final int? quantidadeAvaliacoes;

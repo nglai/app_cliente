@@ -38,9 +38,11 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text('PROMOÇÕES', style: Theme.of(context).textTheme.headline4,),
+                  child: Text(
+                    'PROMOÇÕES',
+                    style: Theme.of(context).textTheme.headline4,
+                  ),
                 ),
-
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -120,7 +122,7 @@ class _HomePageState extends State<HomePage> {
                                           decoration:
                                               TextDecoration.lineThrough)),
                                   Text(
-                                    'R\$ ${(produto.preco! - produto.precoDesconto!).toStringAsFixed(2)}',
+                                    'R\$ ${(produto.preco! - double.parse(produto.precoDesconto!)).toStringAsFixed(2)}',
                                     style: TextStyle(
                                         fontSize: 22,
                                         fontWeight: FontWeight.bold),
@@ -146,20 +148,22 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                   height: 20,
                 ),
-
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text('DESTAQUES', style: Theme.of(context).textTheme.headline4,),
+                  child: Text(
+                    'DESTAQUES',
+                    style: Theme.of(context).textTheme.headline4,
+                  ),
                 ),
-
                 ListView.builder(
                   shrinkWrap: true,
-                  // physics: BouncingScrollPhysics(),
+                  physics: BouncingScrollPhysics(),
                   itemCount: produtos.length,
                   itemBuilder: (context, index) {
                     final produto = produtos[index];
                     return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 30, vertical: 20),
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
@@ -169,7 +173,8 @@ class _HomePageState extends State<HomePage> {
                               color: Colors.grey.withOpacity(0.5),
                               spreadRadius: 5,
                               blurRadius: 7,
-                              offset: Offset(0, 3), // changes position of shadow
+                              offset:
+                                  Offset(0, 3), // changes position of shadow
                             ),
                           ],
                         ),
@@ -205,7 +210,6 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                   ),
                                 ),
-
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Container(
