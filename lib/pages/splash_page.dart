@@ -6,6 +6,7 @@ import '../controllers/user_controller.dart';
 import 'login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+//import 'dart:async';
 
 class SplashPage extends StatefulWidget {
   SplashPage({Key? key}) : super(key: key);
@@ -15,6 +16,16 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+  // void initState() {
+  //   super.initState();
+  //   Timer(Duration(seconds: 3), () {
+  //     Navigator.push(
+  //       context,
+  //       MaterialPageRoute(builder: (context) => LoginPage()),
+  //     );
+  //   });
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<UserController>(
@@ -25,7 +36,7 @@ class _SplashPageState extends State<SplashPage> {
           case AuthState.unsigned:
             return LoginPage();
           case AuthState.loading:
-            return SplashLoading();
+            return SplashLoadingWidget();
         }
       },
     );
