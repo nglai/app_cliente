@@ -108,7 +108,7 @@ class _PromocaoWidgetState extends State<PromocaoWidget> {
                                   fontSize: 18,
                                   decoration: TextDecoration.lineThrough)),
                           Text(
-                            'R\$ ${(produto.preco! - produto.precoDesconto!).toStringAsFixed(2)}',
+                            'R\$ ${(produto.preco! - double.parse(produto.precoDesconto!)).toStringAsFixed(2)}',
                             style: TextStyle(
                                 fontSize: 22, fontWeight: FontWeight.bold),
                           )
