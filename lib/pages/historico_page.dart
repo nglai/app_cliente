@@ -1,5 +1,5 @@
-import 'dart:ui';
 
+import 'dart:ui';
 import 'package:app_cliente/controllers/user_controller.dart';
 import 'package:app_cliente/models/pedido_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -24,9 +24,11 @@ class _HistoricoPageState extends State<HistoricoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+
         title: Text('Histórico'),
         backgroundColor: Color.fromRGBO(157, 78, 221, 1),
       ),
+
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: FirebaseFirestore.instance
             .collection('pedidos')

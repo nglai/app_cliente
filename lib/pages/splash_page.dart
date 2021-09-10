@@ -1,9 +1,8 @@
 import 'package:app_cliente/pages/login_page.dart';
 import 'package:app_cliente/pages/menu_page.dart';
-
+import 'package:app_cliente/widgets/splash_loading.dart';
 import '../controllers/user_controller.dart';
 import 'login_page.dart';
-import '../widgets/splash_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -25,7 +24,7 @@ class _SplashPageState extends State<SplashPage> {
           case AuthState.unsigned:
             return LoginPage();
           case AuthState.loading:
-            return SplashLoadingWidget();
+            return SplashLoading();
         }
       },
     );

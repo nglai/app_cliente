@@ -25,8 +25,6 @@ class _ProdutoPageState extends State<ProdutoPage> {
   late double valorCompra = widget.produto.preco! * quantidadeProdutos;
   @override
   Widget build(BuildContext context) {
-    print(widget.avaliacao);
-    print(widget.qtAvaliacoes);
     double valorTotal = widget.produto.preco!;
     return Scaffold(
       appBar: AppBar(

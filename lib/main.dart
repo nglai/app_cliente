@@ -1,8 +1,10 @@
+
 import 'package:app_cliente/widgets/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'controllers/user_controller.dart';
+
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
@@ -26,7 +28,7 @@ class MyApp extends StatelessWidget {
         ],
         title: 'Flutter Demo',
         theme: ThemeData(
-          primarySwatch: Colors.pink,
+          primarySwatch: Colors.purple,
         ),
         home: Splash(),
         debugShowCheckedModeBanner: false,
