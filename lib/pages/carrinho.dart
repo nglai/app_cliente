@@ -33,7 +33,7 @@ class _CarrinhoState extends State<Carrinho> {
                       onPressed: () {
                         final novoPedido = PedidoModel(
                           clienteKey: userController.user!.uid,
-                          pedido: pedidoController.pedido,
+                          produto: pedidoController.pedido,
                           clienteNome: userController.model.nome,
                         ).toMap();
 

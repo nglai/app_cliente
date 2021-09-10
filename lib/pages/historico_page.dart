@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:app_cliente/controllers/user_controller.dart';
 import 'package:app_cliente/models/pedido_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -17,45 +19,14 @@ class _HistoricoPageState extends State<HistoricoPage> {
     context,
     listen: false,
   );
-  final List<Map<String, dynamic>> _items = [
-    {
-      'value': '0',
-      'label': '0',
-      'icon': Icon(Icons.stop),
-    },
-    {
-      'value': '1',
-      'label': '1',
-      'icon': Icon(Icons.stop),
-    },
-    {
-      'value': '2',
-      'label': '2',
-      'icon': Icon(Icons.stop),
-    },
-    {
-      'value': '3',
-      'label': '3',
-      'icon': Icon(Icons.stop),
-    },
-    {
-      'value': '4',
-      'label': '4',
-      'icon': Icon(Icons.stop),
-    },
-    {
-      'value': '5',
-      'label': '5',
-      'icon': Icon(Icons.stop),
-    },
-  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text('Histórico'),
-          backgroundColor: Color.fromRGBO(157, 78, 221, 1)),
+        title: Text('Histórico'),
+        backgroundColor: Color.fromRGBO(157, 78, 221, 1),
+      ),
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: FirebaseFirestore.instance
             .collection('pedidos')
@@ -68,43 +39,75 @@ class _HistoricoPageState extends State<HistoricoPage> {
 
           final pedidos = snapshot.data!.docs.map((map) {
             final data = map.data();
-            print(data);
             return PedidoModel.fromMap(data, map.id);
           }).toList();
 
-          return ListView.builder(
-            itemCount: pedidos.length,
-            itemBuilder: (context, index) {
-              final pedido = pedidos[index];
-              return Container(
-                color: Colors.white,
-                child: Text(
-                  '${pedido.pedido[index]['nome']}',
-                ),
+          pedidos.forEach((element) {
+            print(element.key);
+          });
 
-                // ListView.builder(
-                //   shrinkWrap: true,
-                //   physics: BouncingScrollPhysics(),
-                //   itemCount: 1,
-                //   itemBuilder: (context, index) {
-                //     return Column(
-                //       crossAxisAlignment: CrossAxisAlignment.stretch,
-                //       children: [
-                //         Container(
-                //             child: Column(
-                //           children: [
-                //             Text('${pedido.keyProduto}'),
-                //             Text('${pedido.imagem}'),
-                //             Text('${pedido.nome}'),
-                //             Text('${pedido.preco}'),
-                //             Text('${pedido.quantidadeProduto}'),
-                //             Text('${pedido.precoTotal}'),
-                //           ],
-                //         ))
-                //       ],
-                //     );
-                //   },
-                // ),
+          return ListView.builder(
+            itemCount: pedidos.length, //2
+            itemBuilder: (context, index) {
+              final pedido = pedidos[index].produto;
+              return Container(
+                child: Column(
+                  children: [
+                    Container(
+                      color: Color.fromRGBO(224, 170, 255, 1),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              padding: EdgeInsets.all(15),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('Pedido: ${pedidos[index].key}'),
+                                  Text(
+                                      'Data da compra: ${pedido[index]['dataCompra']}'),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              padding: EdgeInsets.all(10),
+                              color: Color.fromRGBO(224, 170, 255, 1),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Status: Entregue',
+                                    style: TextStyle(
+                                      fontSize: 23,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: BouncingScrollPhysics(),
+                      itemCount: pedido.length, //3 //1
+                      itemBuilder: (context, index) {
+                        return Container(
+                          child: Column(
+                            children: [
+                              Text(
+                                '${pedido[index]['nome']}',
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    )
+                  ],
+                ),
               );
             },
           );
