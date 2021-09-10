@@ -45,7 +45,7 @@ class _PromocaoWidgetState extends State<PromocaoWidget> {
                 onPageChanged: (index, reason) =>
                     setState(() => activeIndex = index),
               ),
-              itemCount: 1,
+              itemCount: produtos.length,
               itemBuilder: (context, index, pageView) {
                 final produto = produtos[index];
                 return InkWell(
