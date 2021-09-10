@@ -5,6 +5,7 @@ import '../widgets/render_avaliacao_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../controllers/pedido_controller.dart';
+import 'package:intl/intl.dart';
 
 class ProdutoPage extends StatefulWidget {
   final ProdutoModel produto;
@@ -18,10 +19,14 @@ class ProdutoPage extends StatefulWidget {
 }
 
 class _ProdutoPageState extends State<ProdutoPage> {
+  final data =
+      DateFormat(DateFormat.YEAR_NUM_MONTH_DAY, 'pt_Br').format(DateTime.now());
   late int quantidadeProdutos = 1;
   late double valorCompra = widget.produto.preco! * quantidadeProdutos;
   @override
   Widget build(BuildContext context) {
+    print(widget.avaliacao);
+    print(widget.qtAvaliacoes);
     double valorTotal = widget.produto.preco!;
     return Scaffold(
       appBar: AppBar(
@@ -182,6 +187,8 @@ class _ProdutoPageState extends State<ProdutoPage> {
                         imagem: widget.produto.imagem!,
                         precoTotal: valorCompra,
                         quantidadeProduto: quantidadeProdutos,
+                        dataCompra: data,
+                        categoria: widget.produto.categoria!,
                       ).toMap();
                       pedidoController.addProduto(produto);
                     },

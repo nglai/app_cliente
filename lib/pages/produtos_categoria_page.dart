@@ -53,6 +53,7 @@ class _ProdutosCategoriaPageState extends State<ProdutosCategoriaPage> {
             itemCount: produtos.length,
             itemBuilder: (context, index) {
               final produto = produtos[index];
+              print(produto.quantidadeAvaliacoes);
 
               return Container(
                 color: Colors.white,

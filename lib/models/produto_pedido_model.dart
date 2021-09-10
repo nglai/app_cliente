@@ -12,6 +12,8 @@ class ProdutoPedidoModel {
   final double precoTotal;
   final int quantidadeProduto;
   final Uint8List imagem;
+  final String dataCompra;
+  final String categoria;
 
   ProdutoPedidoModel({
     required this.precoTotal,
@@ -23,6 +25,8 @@ class ProdutoPedidoModel {
     required this.nomeVendedor,
     required this.cor,
     required this.imagem,
+    required this.dataCompra,
+    required this.categoria,
   });
 
   static ProdutoPedidoModel fromMap(Map<String, dynamic> map,
@@ -37,6 +41,8 @@ class ProdutoPedidoModel {
         precoTotal: map['precoTotal'],
         quantidadeProduto: map['quantidadeProduto'],
         imagem: map['imagem']?.bytes,
+        dataCompra: map['dataCompra'],
+        categoria: map['categoria'],
       );
 
   Map<String, dynamic> toMap() => {
@@ -48,5 +54,7 @@ class ProdutoPedidoModel {
         'precoTotal': precoTotal,
         'quantidadeProduto': quantidadeProduto,
         'imagem': Blob(imagem),
+        'dataCompra': dataCompra,
+        'categoria': categoria,
       };
 }
