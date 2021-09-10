@@ -48,7 +48,7 @@ class _MinhaContaState extends State<MinhaConta> {
                 itemCount: usuarios.length,
                 itemBuilder: (context, index) {
                   final usuario = usuarios[index];
-                  print(usuario);                  
+                  print(usuario);
                   return SingleChildScrollView(
                     physics: BouncingScrollPhysics(),
                     child: Column(
@@ -102,10 +102,10 @@ class _MinhaContaState extends State<MinhaConta> {
                               Text("${usuario.telefone}",
                                   style: textStyles.headline5),
                               SizedBox(height: 20),
-      
                               Center(
                                 child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(primary: Color.fromRGBO(157, 78, 221, 1)),
+                                  style: ElevatedButton.styleFrom(
+                                      primary: Color.fromRGBO(157, 78, 221, 1)),
                                   onPressed: () async {
                                     Navigator.push(
                                         context,

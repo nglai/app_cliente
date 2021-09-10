@@ -1,3 +1,5 @@
+import 'package:app_cliente/models/produto_pedido_model.dart';
+
 import '../models/produto_model.dart';
 import '../widgets/render_avaliacao_widget.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +8,8 @@ import '../controllers/pedido_controller.dart';
 
 class ProdutoPage extends StatefulWidget {
   final ProdutoModel produto;
-  final double avaliacao;
-  final int qtAvaliacoes;
+  final int? avaliacao;
+  final int? qtAvaliacoes;
 
   ProdutoPage(this.produto, this.avaliacao, this.qtAvaliacoes);
 
@@ -17,9 +19,10 @@ class ProdutoPage extends StatefulWidget {
 
 class _ProdutoPageState extends State<ProdutoPage> {
   late int quantidadeProdutos = 1;
+  late double valorCompra = widget.produto.preco! * quantidadeProdutos;
   @override
   Widget build(BuildContext context) {
-    double valorTotal = widget.produto.preco;
+    double valorTotal = widget.produto.preco!;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(157, 78, 221, 1),
@@ -32,8 +35,22 @@ class _ProdutoPageState extends State<ProdutoPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Image.network(
-                    'https://images-americanas.b2w.io/produtos/01/00/img/3069544/7/3069544719_1GG.jpg'),
+                widget.produto.imagem != null
+                    ? Container(
+                        width: 300,
+                        height: 300,
+                        child: Image.memory(
+                          widget.produto.imagem!,
+                          width: 72,
+                          fit: BoxFit.contain,
+                        ),
+                      )
+                    : Container(
+                        child: Icon(Icons.no_photography),
+                        width: 72,
+                        height: double.maxFinite,
+                        color: Colors.blue,
+                      ),
                 Padding(
                   padding: const EdgeInsets.all(15),
                   child: Row(
@@ -41,7 +58,7 @@ class _ProdutoPageState extends State<ProdutoPage> {
                       Expanded(
                         flex: 8,
                         child: Text(
-                          widget.produto.nome,
+                          widget.produto.nome!,
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.w600),
                         ),
@@ -81,7 +98,7 @@ class _ProdutoPageState extends State<ProdutoPage> {
                 Padding(
                   padding: const EdgeInsets.all(15),
                   child: RenderAvaliacaoWidget(
-                      widget.avaliacao, widget.produto.avaliacao.length),
+                      widget.avaliacao, widget.qtAvaliacoes),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(15),
@@ -93,7 +110,7 @@ class _ProdutoPageState extends State<ProdutoPage> {
                 Padding(
                   padding: const EdgeInsets.all(15),
                   child: Text(
-                    'Em até 10x R\$ ${(widget.produto.preco / 10).toStringAsFixed(2).toString()} sem juros',
+                    'Em até 10x R\$ ${(widget.produto.preco! / 10).toStringAsFixed(2).toString()} sem juros',
                     style: TextStyle(fontSize: 16),
                   ),
                 ),
@@ -108,7 +125,7 @@ class _ProdutoPageState extends State<ProdutoPage> {
                       InkWell(
                         onTap: () {},
                         child: Text(
-                          '${widget.produto.vendedor}',
+                          '${widget.produto.nomeVendedor}',
                           style: TextStyle(
                               fontSize: 16,
                               color: Colors.blueAccent,
@@ -136,7 +153,7 @@ class _ProdutoPageState extends State<ProdutoPage> {
                             child: Container(
                               padding: EdgeInsets.all(15),
                               child: Text(
-                                widget.produto.descricao,
+                                widget.produto.descricao!,
                                 style: TextStyle(fontSize: 16),
                               ),
                             ),
@@ -155,15 +172,17 @@ class _ProdutoPageState extends State<ProdutoPage> {
                       Color.fromRGBO(157, 78, 221, 1),
                     )),
                     onPressed: () {
-                      final produto = {
-                        'nome': widget.produto.nome,
-                        'preco': widget.produto.preco,
-                        'quantidade': quantidadeProdutos,
-                        'keyVendedor': widget.produto.keyVendedor,
-                        'nomeVendedor': widget.produto.vendedor,
-                        'precoTotal': (valorTotal * quantidadeProdutos),
-                      };
-
+                      final produto = ProdutoPedidoModel(
+                        nome: widget.produto.nome!,
+                        preco: widget.produto.preco!,
+                        keyVendedor: widget.produto.keyVendedor!,
+                        keyProduto: widget.produto.keyProduto,
+                        nomeVendedor: widget.produto.nomeVendedor!,
+                        cor: widget.produto.cor!,
+                        imagem: widget.produto.imagem!,
+                        precoTotal: valorCompra,
+                        quantidadeProduto: quantidadeProdutos,
+                      ).toMap();
                       pedidoController.addProduto(produto);
                     },
                     child: Row(

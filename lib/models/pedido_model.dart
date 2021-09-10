@@ -2,7 +2,7 @@ class PedidoModel {
   final String? key;
   final String clienteKey;
   final String clienteNome;
-  final List<Map<String, dynamic>> pedido;
+  final List<dynamic> pedido;
 
   PedidoModel({
     this.key,
