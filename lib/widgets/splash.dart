@@ -13,7 +13,7 @@ class _SplashState extends State<Splash> {
   void initState() {
     super.initState();
 
-    Timer(Duration(seconds: 3), () {
+    Timer(Duration(seconds: 20), () {
       Navigator.push(
           context,
           MaterialPageRoute(
@@ -28,21 +28,20 @@ class _SplashState extends State<Splash> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Carregando...',
-              style: TextStyle(
-                fontSize: 22.0,
-                fontWeight: FontWeight.bold,
-              ),
+          children: [
+            Column(
+              children: [
+                Image.asset(
+                  "assets/eletron2.gif",
+                  width: 110,
+                  height: 500,
+                  // fit: BoxFit.fill,
+                ),
+              ],
             ),
-            SizedBox(
-              height: 5.0,
-            ),
-            CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation(Color(0xFF9d4edd)),
-              strokeWidth: 11.0,
-            ),
+            // LinearProgressIndicator(
+            //   color: Color(0xFF9d4edd),
+            // ),
           ],
         ),
       ),
