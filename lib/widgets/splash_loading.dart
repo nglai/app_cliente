@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SplashLoadingWidget extends StatelessWidget {
+class SplashLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -10,7 +10,7 @@ class SplashLoadingWidget extends StatelessWidget {
           Column(
             children: [
               Image.asset(
-                "assets/eletron.gif",
+                "assets/eletron2.gif",
                 // width: 110,
                 // height: 150,
                 // fit: BoxFit.fill,

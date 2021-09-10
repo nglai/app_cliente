@@ -1,9 +1,9 @@
+import 'package:app_cliente/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 
 import 'controllers/user_controller.dart';
-import 'pages/login_pages.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,9 +19,10 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          primarySwatch: Colors.pink,
+          primarySwatch: Colors.purple,
         ),
-        home: LoginPage(),
+        home: SplashPage(),
+        debugShowCheckedModeBanner: false,
       ),
     );
   }

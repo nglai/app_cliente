@@ -36,8 +36,27 @@ class _ProdutoCarrinhoWidgetState extends State<ProdutoCarrinhoWidget> {
                 : Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Image.network(
-                          'https://images-americanas.b2w.io/produtos/01/00/img/3069544/7/3069544719_1GG.jpg'),
+                      pedido['imagem'] != null
+                          ? Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 300,
+                                  height: 300,
+                                  child: Image.memory(
+                                    pedido['imagem']!,
+                                    width: 72,
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                              ],
+                            )
+                          : Container(
+                              child: Icon(Icons.no_photography),
+                              width: 72,
+                              height: double.maxFinite,
+                              color: Colors.blue,
+                            ),
                       Text('${pedido['nome']}'),
                       InkWell(
                         onTap: () {
