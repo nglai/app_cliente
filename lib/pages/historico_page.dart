@@ -1,3 +1,5 @@
+
+import 'dart:ui';
 import 'package:app_cliente/controllers/user_controller.dart';
 import 'package:app_cliente/models/pedido_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -17,45 +19,16 @@ class _HistoricoPageState extends State<HistoricoPage> {
     context,
     listen: false,
   );
-  final List<Map<String, dynamic>> _items = [
-    {
-      'value': '0',
-      'label': '0',
-      'icon': Icon(Icons.stop),
-    },
-    {
-      'value': '1',
-      'label': '1',
-      'icon': Icon(Icons.stop),
-    },
-    {
-      'value': '2',
-      'label': '2',
-      'icon': Icon(Icons.stop),
-    },
-    {
-      'value': '3',
-      'label': '3',
-      'icon': Icon(Icons.stop),
-    },
-    {
-      'value': '4',
-      'label': '4',
-      'icon': Icon(Icons.stop),
-    },
-    {
-      'value': '5',
-      'label': '5',
-      'icon': Icon(Icons.stop),
-    },
-  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text('Histórico'),
-          backgroundColor: Color.fromRGBO(157, 78, 221, 1)),
+
+        title: Text('Histórico'),
+        backgroundColor: Color.fromRGBO(157, 78, 221, 1),
+      ),
+
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: FirebaseFirestore.instance
             .collection('pedidos')
@@ -71,170 +44,72 @@ class _HistoricoPageState extends State<HistoricoPage> {
             return PedidoModel.fromMap(data, map.id);
           }).toList();
 
+          pedidos.forEach((element) {
+            print(element.key);
+          });
+
           return ListView.builder(
-            itemCount: pedidos.length,
+            itemCount: pedidos.length, //2
             itemBuilder: (context, index) {
-              final pedido = pedidos[index];
+              final pedido = pedidos[index].produto;
               return Container(
-                color: Colors.white,
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    physics: BouncingScrollPhysics(),
-                    itemCount: pedido.pedido.length,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                child: Column(
+                  children: [
+                    Container(
+                      color: Color.fromRGBO(224, 170, 255, 1),
+                      child: Row(
                         children: [
-                          Container(
-                            padding: EdgeInsets.all(10),
-                            color: Color.fromRGBO(224, 170, 255, 1),
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.stretch,
-                                        children: [
-                                          Text(
-                                            'Pedido: ${pedido.key}',
-                                            style: TextStyle(fontSize: 16),
-                                          ),
-                                          Text(
-                                            'Data da compra: 03/09/2021',
-                                            style: TextStyle(fontSize: 16),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'Status: Entregue',
-                                            style: TextStyle(fontSize: 20),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                          Expanded(
+                            child: Container(
+                              padding: EdgeInsets.all(15),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('Pedido: ${pedidos[index].key}'),
+                                  Text(
+                                      'Data da compra: ${pedido[index]['dataCompra']}'),
+                                ],
+                              ),
                             ),
                           ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: [
-                                    pedido.pedido[index]['imagem'] != null
-                                        ? Container(
-                                            width: 300,
-                                            height: 300,
-                                            child: Image.memory(
-                                              pedido.pedido[index]['imagem']!,
-                                              width: 72,
-                                              fit: BoxFit.contain,
-                                            ),
-                                          )
-                                        : Container(
-                                            child: Icon(Icons.no_photography),
-                                            width: 72,
-                                            height: double.maxFinite,
-                                            color: Colors.blue,
-                                          ),
-                                  ],
-                                ),
+                          Expanded(
+                            child: Container(
+                              padding: EdgeInsets.all(10),
+                              color: Color.fromRGBO(224, 170, 255, 1),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Status: Entregue',
+                                    style: TextStyle(
+                                      fontSize: 23,
+                                    ),
+                                  ),
+                                ],
                               ),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Produto: ${pedido.pedido[index]['nome']}',
-                                      style: TextStyle(fontSize: 16),
-                                    ),
-                                    Text(
-                                      'Quantidade: ${pedido.pedido[index]['quantidade']}',
-                                      style: TextStyle(fontSize: 16),
-                                    ),
-                                    Text(
-                                      'Preco por unidade: R\$ ${pedido.pedido[index]['preco']}',
-                                      style: TextStyle(fontSize: 16),
-                                    ),
-                                    Text(
-                                      'Preco do pedido: R\$ ${pedido.pedido[index]['precoTotal']}',
-                                      style: TextStyle(fontSize: 16),
-                                    ),
-                                    Text(
-                                      'Vendido e entregue por ${pedido.pedido[index]['nomeVendedor']}',
-                                      style: TextStyle(fontSize: 16),
-                                    )
-                                  ],
-                                ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: BouncingScrollPhysics(),
+                      itemCount: pedido.length, //3 //1
+                      itemBuilder: (context, index) {
+                        return Container(
+                          child: Column(
+                            children: [
+                              Text(
+                                '${pedido[index]['nome']}',
                               ),
                             ],
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(0, 0, 20, 20),
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    int nota;
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          title: Text('Selecione uma nota'),
-                                          content: SingleChildScrollView(
-                                            child: SelectFormField(
-                                              type: SelectFormFieldType
-                                                  .dropdown, // or can be dialog
-                                              initialValue: '5',
-                                              labelText: 'Nota',
-                                              items: _items,
-                                              onChanged: (val) =>
-                                                  nota = int.parse(val),
-                                            ),
-                                          ),
-                                          actions: [
-                                            TextButton(
-                                                onPressed: () async {
-                                                  // final avaliacao = ProdutoModel(
-
-                                                  // avaliacao: nota)
-                                                  // await FirebaseFirestore.instance.collection('produtos').doc(pedido.pedido[index]['keyProduto']).update();
-                                                },
-                                                child:
-                                                    Text('Confirmar avaliação'))
-                                          ],
-                                        );
-                                      },
-                                    );
-                                  },
-                                  child: Text('Avaliar produto'),
-                                  style: ButtonStyle(
-                                      backgroundColor:
-                                          MaterialStateProperty.all(
-                                    Color.fromRGBO(157, 78, 221, 1),
-                                  )),
-                                ),
-                              ),
-                            ],
-                          )
-                        ],
-                      );
-                    }),
+                        );
+                      },
+                    )
+                  ],
+                ),
               );
             },
           );

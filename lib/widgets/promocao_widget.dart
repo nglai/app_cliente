@@ -21,7 +21,7 @@ class _PromocaoWidgetState extends State<PromocaoWidget> {
     return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
       stream: FirebaseFirestore.instance
           .collection('produtos')
-          .where('promocao', isEqualTo: true)
+          .where('promocao', isEqualTo: 'Sim')
           .snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {

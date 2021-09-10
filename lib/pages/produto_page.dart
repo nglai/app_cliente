@@ -1,8 +1,11 @@
+import 'package:app_cliente/models/produto_pedido_model.dart';
+
 import '../models/produto_model.dart';
 import '../widgets/render_avaliacao_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../controllers/pedido_controller.dart';
+import 'package:intl/intl.dart';
 
 class ProdutoPage extends StatefulWidget {
   final ProdutoModel produto;
@@ -16,7 +19,10 @@ class ProdutoPage extends StatefulWidget {
 }
 
 class _ProdutoPageState extends State<ProdutoPage> {
+  final data =
+      DateFormat(DateFormat.YEAR_NUM_MONTH_DAY, 'pt_Br').format(DateTime.now());
   late int quantidadeProdutos = 1;
+  late double valorCompra = widget.produto.preco! * quantidadeProdutos;
   @override
   Widget build(BuildContext context) {
     double valorTotal = widget.produto.preco!;
@@ -169,18 +175,19 @@ class _ProdutoPageState extends State<ProdutoPage> {
                       Color.fromRGBO(157, 78, 221, 1),
                     )),
                     onPressed: () {
-                      final produto = {
-                        'nome': widget.produto.nome,
-                        'preco': widget.produto.preco,
-                        'quantidade': quantidadeProdutos,
-                        'keyVendedor': widget.produto.keyVendedor,
-                        'keyProduto': widget.produto.keyProduto,
-                        'nomeVendedor': widget.produto.nomeVendedor,
-                        'cor': widget.produto.cor,
-                        'imagem': widget.produto.imagem,
-                        'precoTotal': (valorTotal * quantidadeProdutos),
-                      };
-
+                      final produto = ProdutoPedidoModel(
+                        nome: widget.produto.nome!,
+                        preco: widget.produto.preco!,
+                        keyVendedor: widget.produto.keyVendedor!,
+                        keyProduto: widget.produto.keyProduto,
+                        nomeVendedor: widget.produto.nomeVendedor!,
+                        cor: widget.produto.cor!,
+                        imagem: widget.produto.imagem!,
+                        precoTotal: valorCompra,
+                        quantidadeProduto: quantidadeProdutos,
+                        dataCompra: data,
+                        categoria: widget.produto.categoria!,
+                      ).toMap();
                       pedidoController.addProduto(produto);
                     },
                     child: Row(

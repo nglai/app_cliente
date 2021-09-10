@@ -41,12 +41,16 @@ dependencies:
 
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   font_awesome_flutter: ^9.1.0
   lottie: ^1.1.0
+  file_picker: ^4.0.2
   smooth_page_indicator: ^1.0.0+2
   select_form_field: "^2.2.0"
   
   
+
 
 dev_dependencies:
   flutter_test:

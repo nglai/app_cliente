@@ -11,7 +11,7 @@ class ProdutoModel {
   final String? keyVendedor;
   final String? nomeVendedor;
   final String? cor;
-  final bool? promocao;
+  final String? promocao;
   final double? precoDesconto;
   final int? quantidade;
   final int? avaliacao;

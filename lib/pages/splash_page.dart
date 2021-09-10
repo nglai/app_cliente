@@ -1,7 +1,6 @@
 import 'package:app_cliente/pages/login_page.dart';
 import 'package:app_cliente/pages/menu_page.dart';
 import 'package:app_cliente/widgets/splash_loading.dart';
-
 import '../controllers/user_controller.dart';
 import 'login_page.dart';
 import 'package:flutter/material.dart';
