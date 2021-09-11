@@ -25,89 +25,267 @@ class _HistoricoPageState extends State<HistoricoPage> {
         title: Text('Histórico'),
         backgroundColor: Color.fromRGBO(157, 78, 221, 1),
       ),
-      body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-        stream: FirebaseFirestore.instance
-            .collection('pedidos')
-            .where('clienteKey', isEqualTo: userController.user!.uid)
-            .snapshots(),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return Center(child: CircularProgressIndicator());
-          }
+      body: Container(
+        color: Colors.white,
+        child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+          stream: FirebaseFirestore.instance
+              .collection('pedidos')
+              .where('clienteKey', isEqualTo: userController.user!.uid)
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return Center(child: CircularProgressIndicator());
+            }
 
-          final pedidos = snapshot.data!.docs.map((map) {
-            final data = map.data();
-            return PedidoModel.fromMap(data, map.id);
-          }).toList();
+            final pedidos = snapshot.data!.docs.map((map) {
+              final data = map.data();
+              return PedidoModel.fromMap(data, map.id);
+            }).toList();
 
-          return ListView.builder(
-            itemCount: pedidos.length,
-            itemBuilder: (context, index) {
-              print(index);
-              final produto = pedidos[index];
-              return Container(
-                child: Column(
-                  children: [
-                    Container(
-                      color: Color.fromRGBO(224, 170, 255, 1),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Container(
-                              padding: EdgeInsets.all(15),
+            return ListView.builder(
+              itemCount: pedidos.length,
+              itemBuilder: (context, index) {
+                final produto = pedidos[index];
+                return Container(
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset:
+                                  Offset(0, 0), // changes position of shadow
+                            ),
+                          ],
+                          color: Color.fromRGBO(224, 170, 255, 1),
+                          borderRadius: BorderRadiusDirectional.only(
+                              topStart: Radius.circular(15),
+                              topEnd: Radius.circular(15)),
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 2,
+                              child: Container(
+                                padding: EdgeInsets.all(15),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 5),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Pedido:',
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                          Text(
+                                            '${produto.key}',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 5),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Data da compra:',
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                          Text(
+                                            '${produto.produto[0]['dataCompra']}',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Status: Entregue',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadiusDirectional.only(
+                              bottomStart: Radius.circular(15),
+                              bottomEnd: Radius.circular(15)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset:
+                                  Offset(0, 0), // changes position of shadow
+                            ),
+                          ],
+                        ),
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          physics: BouncingScrollPhysics(),
+                          itemCount: produto.produto.length, //3 //1 //2
+                          itemBuilder: (context, index) {
+                            return Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 20, horizontal: 10),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('Pedido: ${produto.key}'),
-                                  Text(
-                                      'Data da compra: ${produto.produto[0]['dataCompra']}'),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              padding: EdgeInsets.all(10),
-                              color: Color.fromRGBO(224, 170, 255, 1),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Status: Entregue',
-                                    style: TextStyle(
-                                      fontSize: 23,
-                                    ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Column(
+                                          children: [
+                                            produto.produto[index]['imagem']
+                                                        .bytes !=
+                                                    null
+                                                ? Container(
+                                                    width: 170,
+                                                    height: 170,
+                                                    child: Image.memory(
+                                                      produto
+                                                          .produto[index]
+                                                              ['imagem']
+                                                          .bytes,
+                                                      width: 72,
+                                                      fit: BoxFit.contain,
+                                                    ),
+                                                  )
+                                                : Container(
+                                                    child: Icon(
+                                                        Icons.no_photography),
+                                                    width: 72,
+                                                    height: double.maxFinite,
+                                                    color: Colors.blue,
+                                                  ),
+                                          ],
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(10.0),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    bottom: 5),
+                                                child: Text(
+                                                  'Produto: ${produto.produto[index]['nome']}',
+                                                  style: TextStyle(
+                                                    fontSize: 16,
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    bottom: 5),
+                                                child: Text(
+                                                  'Cor: ${produto.produto[index]['cor']}',
+                                                  style: TextStyle(
+                                                    fontSize: 16,
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    bottom: 5),
+                                                child: Text(
+                                                  'Quantidade: ${produto.produto[index]['quantidade']}',
+                                                  style: TextStyle(
+                                                    fontSize: 16,
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    bottom: 5),
+                                                child: Text(
+                                                  'Preço: ${produto.produto[index]['preco']}',
+                                                  style: TextStyle(
+                                                    fontSize: 16,
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    bottom: 5),
+                                                child: Text(
+                                                  'Preço total: ${produto.produto[index]['precoTotal']}',
+                                                  style: TextStyle(
+                                                    fontSize: 16,
+                                                  ),
+                                                ),
+                                              ),
+                                              ElevatedButton(
+                                                style: ElevatedButton.styleFrom(
+                                                    primary: Color.fromRGBO(
+                                                        157, 78, 221, 1)),
+                                                onPressed: () {},
+                                                child: Text(
+                                                  'Avaliar produto',
+                                                  style: TextStyle(
+                                                    fontSize: 16,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                    ],
                                   ),
                                 ],
                               ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      physics: BouncingScrollPhysics(),
-                      itemCount: produto.produto.length, //3 //1 //2
-                      itemBuilder: (context, index) {
-                        print('Print 102: ${pedidos[index].produto.length}');
-                        return Container(
-                          child: Column(
-                            children: [
-                              Text(
-                                '${produto.produto[index]['nome']}',
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    )
-                  ],
-                ),
-              );
-            },
-          );
-        },
+                            );
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }
