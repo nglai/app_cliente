@@ -25,7 +25,8 @@ class _ProdutoCarrinhoWidgetState extends State<ProdutoCarrinhoWidget> {
         if (pedidoController.pedido.isEmpty) {
           msg = 'Carrinho vazio';
         } else {
-          produto = ProdutoPedidoModel.fromMap(pedidoController.pedido[index]);
+          produto = ProdutoPedidoModel.fromMap(pedidoController.pedido[index],
+              pedidoController.pedido[index]['keyProduto']);
         }
         return AnimatedBuilder(
           animation: pedidoController,
@@ -76,6 +77,7 @@ class _ProdutoCarrinhoWidgetState extends State<ProdutoCarrinhoWidget> {
                       Text('${produto.preco}'),
                       Text('${produto.quantidadeProduto}'),
                       Text('${produto.precoTotal}'),
+                      Text('${produto.keyProduto}'),
                     ],
                   );
           },

@@ -185,7 +185,7 @@ class _ProdutoPageState extends State<ProdutoPage> {
                         nome: widget.produto.nome!,
                         preco: double.parse(precoFinal),
                         keyVendedor: widget.produto.keyVendedor!,
-                        keyProduto: widget.produto.keyProduto,
+                        keyProduto: widget.produto.keyProduto!,
                         nomeVendedor: widget.produto.nomeVendedor!,
                         cor: widget.produto.cor!,
                         imagem: widget.produto.imagem!,
