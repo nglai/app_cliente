@@ -171,7 +171,7 @@ class _CadastroPageState extends State<CadastroPage> {
                     TextFormField(
                         validator: (String? texto) {
                           if (texto != null && texto.isNotEmpty) {
-                            if (texto.length < 8) {
+                            if (texto.length < 6) {
                               return "Digite uma senha com 6 caracteres ou mais";
                             }
                           } else {
@@ -189,7 +189,7 @@ class _CadastroPageState extends State<CadastroPage> {
                     TextFormField(
                         validator: (String? texto) {
                           if (texto != null && texto.isNotEmpty) {
-                            if (texto.length < 8) {
+                            if (texto.length < 6) {
                               return "Digite uma senha com 6 caracteres ou mais";
                             }
                           } else {

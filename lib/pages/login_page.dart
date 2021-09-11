@@ -69,8 +69,8 @@ class _LoginPageState extends State<LoginPage> {
                         TextFormField(
                           validator: (String? texto) {
                             if (texto != null && texto.isNotEmpty) {
-                              if (texto.length < 8) {
-                                return "Digite uma senha com 8 caracteres ou mais";
+                              if (texto.length < 6) {
+                                return "Digite uma senha com 6 caracteres ou mais";
                               }
                             } else {
                               return "Campo obrigatório";
@@ -89,9 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                           padding: EdgeInsets.only(bottom: 8),
                         ),
                         GestureDetector(
-                          onTap: () {
-                            print('ta funcionando???');
-                          },
+                          onTap: () {},
                           child: Padding(
                             padding: const EdgeInsets.only(left: 200),
                             child: Text(
