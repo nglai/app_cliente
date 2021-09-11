@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:app_cliente/controllers/user_controller.dart';
 import 'package:app_cliente/models/pedido_model.dart';
+import 'package:app_cliente/widgets/avaliacao_produto.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -126,12 +127,50 @@ class _HistoricoPageState extends State<HistoricoPage> {
                             Expanded(
                               child: Container(
                                 child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      'Status: Entregue',
-                                      style: TextStyle(
-                                        fontSize: 20,
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 5),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Status:',
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                          Text(
+                                            'Solicitado',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 5),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Entrega em:',
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                          Text(
+                                            '22/09/2021',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ],
@@ -229,7 +268,7 @@ class _HistoricoPageState extends State<HistoricoPage> {
                                                 padding: const EdgeInsets.only(
                                                     bottom: 5),
                                                 child: Text(
-                                                  'Quantidade: ${produto.produto[index]['quantidade']}',
+                                                  'Quantidade: ${produto.produto[index]['quantidadeProduto']}',
                                                   style: TextStyle(
                                                     fontSize: 16,
                                                   ),
@@ -259,7 +298,17 @@ class _HistoricoPageState extends State<HistoricoPage> {
                                                 style: ElevatedButton.styleFrom(
                                                     primary: Color.fromRGBO(
                                                         157, 78, 221, 1)),
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  showDialog<String>(
+                                                      context: context,
+                                                      builder: (BuildContext
+                                                              context) =>
+                                                          AvaliacaoProduto(
+                                                              keyProduto: produto
+                                                                          .produto[
+                                                                      index][
+                                                                  'keyProduto']));
+                                                },
                                                 child: Text(
                                                   'Avaliar produto',
                                                   style: TextStyle(

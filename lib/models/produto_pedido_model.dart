@@ -56,5 +56,6 @@ class ProdutoPedidoModel {
         'imagem': Blob(imagem),
         'dataCompra': dataCompra,
         'categoria': categoria,
+        'keyProduto': keyProduto
       };
 }

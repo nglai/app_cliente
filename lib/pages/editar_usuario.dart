@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:app_cliente/models/usuario_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
@@ -6,6 +8,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:app_cliente/controllers/user_controller.dart';
 import 'package:provider/provider.dart';
 import 'dart:typed_data';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 class EditarUsuarioWidget extends StatefulWidget {
   final UsuarioModel user;
@@ -17,7 +21,7 @@ class EditarUsuarioWidget extends StatefulWidget {
 
 class _EditarUsuarioWidgetState extends State<EditarUsuarioWidget> {
   late final userController =
-  Provider.of<UserController>(context, listen: false);
+      Provider.of<UserController>(context, listen: false);
 
   late final cepCont = TextEditingController()..text = widget.user.cep;
   late final enderecoCont = TextEditingController()
@@ -29,6 +33,11 @@ class _EditarUsuarioWidgetState extends State<EditarUsuarioWidget> {
     ..text = widget.user.nascimento;
 
   late Uint8List? file = widget.user.imagem;
+
+  var maskNumber = new MaskTextInputFormatter(
+      mask: '(##)#.####-####)', filter: {"#": RegExp(r'[0-9]')});
+  var maskData = new MaskTextInputFormatter(
+      mask: '##/##/####', filter: {"#": RegExp(r'[0-9]')});
 
   @override
   Widget build(BuildContext context) {
@@ -65,12 +74,17 @@ class _EditarUsuarioWidgetState extends State<EditarUsuarioWidget> {
                           .pickFiles(type: FileType.image);
 
                       if (result != null) {
-                        setState(() {
+                        if (UniversalPlatform.isAndroid) {
+                          final path = result.files.first.path;
+                          final image = File(path);
+                          final bytes = await image.readAsBytes();
+                          file = bytes;
+                        } else if (UniversalPlatform.isWeb) {
                           final bytes = result.files.first.bytes;
                           file = bytes;
-                        });
+                        }
+                        setState(() {});
                       }
-
                     },
                     icon: FaIcon(
                       FontAwesomeIcons.cameraRetro,
@@ -89,6 +103,7 @@ class _EditarUsuarioWidgetState extends State<EditarUsuarioWidget> {
                     )),
                 Text("Nascimento:"),
                 TextField(
+                    inputFormatters: [maskData],
                     style: textStyles.headline6,
                     controller: nascimentoCont,
                     decoration: InputDecoration(
@@ -122,6 +137,7 @@ class _EditarUsuarioWidgetState extends State<EditarUsuarioWidget> {
                     )),
                 Text("Telefone:"),
                 TextField(
+                    inputFormatters: [maskNumber],
                     style: textStyles.headline6,
                     controller: telefoneCont,
                     decoration: InputDecoration(
@@ -131,10 +147,13 @@ class _EditarUsuarioWidgetState extends State<EditarUsuarioWidget> {
                         size: 17,
                       ),
                     )),
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
                 Center(
                   child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(primary: Color.fromRGBO(157, 78, 221, 1)),
+                    style: ElevatedButton.styleFrom(
+                        primary: Color.fromRGBO(157, 78, 221, 1)),
                     onPressed: () async {
                       final userUpdate = UsuarioModel(
                               key: userController.user!.uid,
@@ -147,13 +166,10 @@ class _EditarUsuarioWidgetState extends State<EditarUsuarioWidget> {
                               imagem: file)
                           .toMap();
 
-
                       await FirebaseFirestore.instance
                           .collection('usuarios')
                           .doc(userController.user!.uid)
                           .update(userUpdate);
-
-                             
 
                       Navigator.pop(context);
                     },

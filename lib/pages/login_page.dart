@@ -127,16 +127,21 @@ class _LoginPageState extends State<LoginPage> {
                             width: 250,
                             child: ElevatedButton(
                               onPressed: () async {
+                                var msg;
                                 try {
                                   await userController.login(email, senha);
                                 } on FirebaseAuthException catch (e) {
                                   if (e.code == "wrong-password") {
+                                    msg = 'Senha inválida';
                                   } else if (e.code == "Invalid-email") {
-                                  } else {}
+                                    msg = 'Email inválido';
+                                  } else if (e.code == "user-not-found") {
+                                    msg = 'Usuário não localizado';
+                                  } else {
+                                    msg = "Ocorreu um erro: ${e.code}";
+                                  }
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                        content:
-                                            Text("Ocorre um erro: ${e.code}")),
+                                    SnackBar(content: Text(msg)),
                                   );
                                 }
                               },
