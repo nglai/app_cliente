@@ -18,21 +18,22 @@ class ProdutoModel {
   final int? quantidadeAvaliacoes;
   final Uint8List? imagem;
 
-  ProdutoModel(
-      {this.keyProduto,
-      this.nome,
-      this.preco,
-      this.categoria,
-      this.descricao,
-      this.keyVendedor,
-      this.nomeVendedor,
-      this.cor,
-      this.promocao,
-      this.precoDesconto,
-      this.quantidade,
-      this.avaliacao,
-      this.imagem,
-      this.quantidadeAvaliacoes});
+  ProdutoModel({
+    this.keyProduto,
+    this.nome,
+    this.preco,
+    this.categoria,
+    this.descricao,
+    this.keyVendedor,
+    this.nomeVendedor,
+    this.cor,
+    this.promocao,
+    this.precoDesconto,
+    this.quantidade,
+    this.avaliacao,
+    this.imagem,
+    this.quantidadeAvaliacoes,
+  });
 
   static ProdutoModel fromMap(Map<String, dynamic> map, [String? keyProduto]) =>
       ProdutoModel(

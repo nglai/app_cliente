@@ -34,13 +34,14 @@ class _HomePageState extends State<HomePage> {
           }).toList();
 
           return SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
             child: Column(
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     'PROMOÇÕES',
-                    style: Theme.of(context).textTheme.headline4,
+                    style: TextStyle(fontSize: 23),
                   ),
                 ),
                 Column(
@@ -61,13 +62,14 @@ class _HomePageState extends State<HomePage> {
                         return InkWell(
                           onTap: () {
                             Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ProdutoPage(
-                                      produto,
-                                      produto.avaliacao,
-                                      produto.quantidadeAvaliacoes),
-                                ));
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ProdutoPage(
+                                    produto,
+                                    produto.avaliacao,
+                                    produto.quantidadeAvaliacoes),
+                              ),
+                            );
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(12.0),
@@ -155,84 +157,122 @@ class _HomePageState extends State<HomePage> {
                     style: Theme.of(context).textTheme.headline4,
                   ),
                 ),
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: BouncingScrollPhysics(),
-                  itemCount: produtos.length,
-                  itemBuilder: (context, index) {
-                    final produto = produtos[index];
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 30, vertical: 20),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 5,
-                              blurRadius: 7,
-                              offset:
-                                  Offset(0, 3), // changes position of shadow
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    child: produto.imagem != null
-                                        ? Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Container(
-                                                width: 150,
-                                                height: 150,
-                                                child: Image.memory(
-                                                  produto.imagem!,
-                                                  width: 72,
-                                                  fit: BoxFit.contain,
-                                                ),
-                                              ),
-                                            ],
-                                          )
-                                        : Container(
-                                            child: Icon(Icons.no_photography),
-                                            width: 72,
-                                            height: double.maxFinite,
-                                            color: Colors.blue,
-                                          ),
+                Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2),
+                      itemCount: 4,
+                      shrinkWrap: true,
+                      physics: BouncingScrollPhysics(),
+                      itemBuilder: (BuildContext context, int index) {
+                        final produto = produtos[index];
+                        return InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ProdutoPage(
+                                    produto,
+                                    produto.avaliacao,
+                                    produto.quantidadeAvaliacoes),
+                              ),
+                            );
+                          },
+                          child: Card(
+                            child: produto.imagem != null
+                                ? Image.memory(
+                                    produto.imagem!,
+                                    fit: BoxFit.contain,
+                                  )
+                                : Container(
+                                    child: Icon(Icons.no_photography),
+                                    width: 72,
+                                    height: double.maxFinite,
+                                    color: Colors.blue,
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    child: Column(
-                                      children: [
-                                        Text('${produto.nome}',
-                                            style: TextStyle(fontSize: 22)),
-                                        Text('${produto.categoria}',
-                                            style: TextStyle(fontSize: 18)),
-                                        Text('R\$: ${produto.preco}',
-                                            style: TextStyle(fontSize: 20)),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
+                          ),
+                        );
+                      }),
                 ),
+                // ListView.builder(
+                //   shrinkWrap: true,
+                //   physics: BouncingScrollPhysics(),
+                //   itemCount: produtos.length,
+                //   itemBuilder: (context, index) {
+                //     final produto = produtos[index];
+                //     return Padding(
+                //       padding: const EdgeInsets.symmetric(
+                //           horizontal: 30, vertical: 20),
+                //       child: Container(
+                //         decoration: BoxDecoration(
+                //           borderRadius: BorderRadius.circular(10),
+                //           color: Colors.white,
+                //           boxShadow: [
+                //             BoxShadow(
+                //               color: Colors.grey.withOpacity(0.5),
+                //               spreadRadius: 5,
+                //               blurRadius: 7,
+                //               offset:
+                //                   Offset(0, 3), // changes position of shadow
+                //             ),
+                //           ],
+                //         ),
+                //         child: Column(
+                //           children: [
+                //             Row(
+                //               mainAxisAlignment: MainAxisAlignment.center,
+                //               children: [
+                //                 Padding(
+                //                   padding: const EdgeInsets.all(8.0),
+                //                   child: Container(
+                //                     child: produto.imagem != null
+                //                         ? Row(
+                //                             mainAxisAlignment:
+                //                                 MainAxisAlignment.center,
+                //                             children: [
+                //                               Container(
+                //                                 width: 150,
+                //                                 height: 150,
+                //                                 child: Image.memory(
+                //                                   produto.imagem!,
+                //                                   width: 72,
+                //                                   fit: BoxFit.contain,
+                //                                 ),
+                //                               ),
+                //                             ],
+                //                           )
+                //                         : Container(
+                //                             child: Icon(Icons.no_photography),
+                //                             width: 72,
+                //                             height: double.maxFinite,
+                //                             color: Colors.blue,
+                //                           ),
+                //                   ),
+                //                 ),
+                //                 Padding(
+                //                   padding: const EdgeInsets.all(8.0),
+                //                   child: Container(
+                //                     child: Column(
+                //                       children: [
+                //                         Text('${produto.nome}',
+                //                             style: TextStyle(fontSize: 22)),
+                //                         Text('${produto.categoria}',
+                //                             style: TextStyle(fontSize: 18)),
+                //                         Text('R\$: ${produto.preco}',
+                //                             style: TextStyle(fontSize: 20)),
+                //                       ],
+                //                     ),
+                //                   ),
+                //                 ),
+                //               ],
+                //             ),
+                //           ],
+                //         ),
+                //       ),
+                //     );
+                //   },
+                // ),
               ],
             ),
           );
