@@ -44,6 +44,7 @@ class _HistoricoPageState extends State<HistoricoPage> {
             }).toList();
 
             return ListView.builder(
+              physics: BouncingScrollPhysics(),
               itemCount: pedidos.length,
               itemBuilder: (context, index) {
                 final produto = pedidos[index];
@@ -296,18 +297,20 @@ class _HistoricoPageState extends State<HistoricoPage> {
                                               ),
                                               ElevatedButton(
                                                 style: ElevatedButton.styleFrom(
-                                                    primary: Color.fromRGBO(
-                                                        157, 78, 221, 1)),
+                                                  primary: Color.fromRGBO(
+                                                      157, 78, 221, 1),
+                                                ),
                                                 onPressed: () {
                                                   showDialog<String>(
-                                                      context: context,
-                                                      builder: (BuildContext
-                                                              context) =>
-                                                          AvaliacaoProduto(
-                                                              keyProduto: produto
-                                                                          .produto[
-                                                                      index][
-                                                                  'keyProduto']));
+                                                    context: context,
+                                                    builder: (BuildContext
+                                                            context) =>
+                                                        AvaliacaoProduto(
+                                                            keyProduto: produto
+                                                                        .produto[
+                                                                    index]
+                                                                ['keyProduto']),
+                                                  );
                                                 },
                                                 child: Text(
                                                   'Avaliar produto',

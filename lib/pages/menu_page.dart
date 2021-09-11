@@ -15,7 +15,6 @@ class _MenuPageState extends State<MenuPage> {
   int _selectedIndex = 0;
 
   final telas = [
-    //EDITAR COM NOMES DAS PÁGINAS
     HomePage(),
     Perfil(),
     Carrinho(),

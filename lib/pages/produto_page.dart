@@ -1,4 +1,6 @@
 import 'package:app_cliente/models/produto_pedido_model.dart';
+import 'package:app_cliente/pages/carrinho.dart';
+import 'package:app_cliente/pages/menu_page.dart';
 
 import '../models/produto_model.dart';
 import '../widgets/render_avaliacao_widget.dart';
@@ -30,6 +32,8 @@ class _ProdutoPageState extends State<ProdutoPage> {
       precoFinal =
           (widget.produto.preco! - double.parse(widget.produto.precoDesconto!))
               .toStringAsFixed(2);
+    } else {
+      precoFinal = widget.produto.preco!.toString();
     }
     double valorCompra = double.parse(precoFinal) * quantidadeProdutos;
     return Scaffold(
@@ -160,6 +164,11 @@ class _ProdutoPageState extends State<ProdutoPage> {
                         children: [
                           Expanded(
                             child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Color.fromRGBO(245, 243, 244, 1),
+                              ),
+                              margin: EdgeInsets.only(top: 20),
                               padding: EdgeInsets.all(15),
                               child: Text(
                                 widget.produto.descricao!,
@@ -195,6 +204,29 @@ class _ProdutoPageState extends State<ProdutoPage> {
                         categoria: widget.produto.categoria!,
                       ).toMap();
                       pedidoController.addProduto(produto);
+
+                      showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('Produto adicionado ao carrinho'),
+                          content: const Text('Deseja continuar comprando?'),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 'Cancel'),
+                              child: const Text('Continuar comprando'),
+                            ),
+                            TextButton(
+                              onPressed: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => MenuPage(),
+                                ),
+                              ),
+                              child: const Text('Ir para o carrinho'),
+                            ),
+                          ],
+                        ),
+                      );
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
