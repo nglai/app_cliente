@@ -53,6 +53,15 @@ class _ProdutosCategoriaPageState extends State<ProdutosCategoriaPage> {
             itemCount: produtos.length,
             itemBuilder: (context, index) {
               final produto = produtos[index];
+              String? precoFinal;
+              if (produto.promocao == 'Sim') {
+                precoFinal =
+                    (produto.preco! - double.parse(produto.precoDesconto!))
+                        .toStringAsFixed(2);
+              } else {
+                precoFinal = produto.preco.toString();
+              }
+
               return Container(
                 color: Colors.white,
                 child: Column(
@@ -120,14 +129,14 @@ class _ProdutosCategoriaPageState extends State<ProdutosCategoriaPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(5),
                                   child: Text(
-                                    'R\$ ${produto.preco.toString()}',
+                                    'R\$ $precoFinal',
                                     style: TextStyle(fontSize: 22),
                                   ),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(5),
                                   child: Text(
-                                    'Em até 10x R\$ ${(produto.preco! / 10).toStringAsFixed(2).toString()} s/ juros',
+                                    'Em até 10x R\$ ${(double.parse(precoFinal) / 10).toStringAsFixed(2).toString()} s/ juros',
                                     style: TextStyle(fontSize: 16),
                                   ),
                                 ),

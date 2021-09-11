@@ -25,7 +25,13 @@ class _ProdutoPageState extends State<ProdutoPage> {
   late double valorCompra = widget.produto.preco! * quantidadeProdutos;
   @override
   Widget build(BuildContext context) {
-    double valorTotal = widget.produto.preco!;
+    var precoFinal;
+    if (widget.produto.promocao == 'Sim') {
+      precoFinal =
+          (widget.produto.preco! - double.parse(widget.produto.precoDesconto!))
+              .toStringAsFixed(2);
+    }
+    double valorCompra = double.parse(precoFinal) * quantidadeProdutos;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(157, 78, 221, 1),
@@ -106,14 +112,14 @@ class _ProdutoPageState extends State<ProdutoPage> {
                 Padding(
                   padding: const EdgeInsets.all(15),
                   child: Text(
-                    'R\$ ${widget.produto.preco.toString()}',
+                    'R\$ ${precoFinal.toString()}',
                     style: TextStyle(fontSize: 22),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(15),
                   child: Text(
-                    'Em até 10x R\$ ${(widget.produto.preco! / 10).toStringAsFixed(2).toString()} sem juros',
+                    'Em até 10x R\$ ${(double.parse(precoFinal) / 10).toStringAsFixed(2).toString()} sem juros',
                     style: TextStyle(fontSize: 16),
                   ),
                 ),
@@ -177,7 +183,7 @@ class _ProdutoPageState extends State<ProdutoPage> {
                     onPressed: () {
                       final produto = ProdutoPedidoModel(
                         nome: widget.produto.nome!,
-                        preco: widget.produto.preco!,
+                        preco: double.parse(precoFinal),
                         keyVendedor: widget.produto.keyVendedor!,
                         keyProduto: widget.produto.keyProduto,
                         nomeVendedor: widget.produto.nomeVendedor!,
@@ -194,7 +200,7 @@ class _ProdutoPageState extends State<ProdutoPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Adicionar ao carrinho | R\$ ${valorTotal * quantidadeProdutos}',
+                          'Adicionar ao carrinho | R\$ $valorCompra',
                         ),
                       ],
                     ),
