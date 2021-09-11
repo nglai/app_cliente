@@ -47,186 +47,190 @@ class _CadastroPageState extends State<CadastroPage> {
         title: Text('Cadastro'),
         centerTitle: true,
       ),
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 50),
-        child: Form(
-          key: _formKey,
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              children: [
-                TextFormField(
-                  validator: (String? texto) {
-                    if (texto != null && texto.isNotEmpty) {
-                      if (texto.length == 0) {
-                        return 'Informe o Nome';
-                      } else if (!regExp.hasMatch(texto)) {
-                        return 'O Nome deve conter caracteres de a-z ou A-Z';
-                      }
-                    } else {
-                      return 'Campo obrigatório';
-                    }
-                  },
-                  onChanged: (texto) => nome = texto,
-                  keyboardType: TextInputType.name,
-                  autofocus: true,
-                  decoration: InputDecoration(
-                    labelText: 'Nome completo ',
-                    prefixIcon: Icon(Icons.person),
-                  ),
-                ),
-                TextFormField(
-                  validator: (String? texto) {
-                    String cpf = _cpf.text;
-                    if (GetUtils.isCpf(cpf)) {
-                    } else {
-                      return 'cpf invalido';
-                    }
-                  },
-                  controller: _cpf,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly,
-                    CpfInputFormatter()
-                  ],
-                  onChanged: (texto) => cpf = texto,
-                  keyboardType: TextInputType.number,
-                  autofocus: true,
-                  decoration: InputDecoration(
-                    labelText: 'CPF',
-                    prefixIcon: Icon(Icons.document_scanner_outlined),
-                  ),
-                ),
-                TextFormField(
-                  inputFormatters: [maskData],
-                  onChanged: (texto) => nascimento = texto,
-                  keyboardType: TextInputType.number,
-                  autofocus: true,
-                  decoration: InputDecoration(
-                    labelText: 'Data de nascimento',
-                    prefixIcon: Icon(Icons.calendar_today),
-                  ),
-                ),
-                TextFormField(
-                  validator: (String? texto) {
-                    if (texto != null && texto.isNotEmpty) {
-                      if (!texto.contains('@') || texto.length < 8) {
-                        return 'Digite um email válido';
-                      }
-                    } else {
-                      return 'Campo obrigatório.';
-                    }
-                  },
-                  onChanged: (texto) => email = texto,
-                  style: TextStyle(color: Colors.black),
-                  keyboardType: TextInputType.emailAddress,
-                  autofocus: true,
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(
-                      Icons.mail_outline,
+      body: ListView(
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+            child: Form(
+              key: _formKey,
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  children: [
+                    TextFormField(
+                      validator: (String? texto) {
+                        if (texto != null && texto.isNotEmpty) {
+                          if (texto.length == 0) {
+                            return 'Informe o Nome';
+                          } else if (!regExp.hasMatch(texto)) {
+                            return 'O Nome deve conter caracteres de a-z ou A-Z';
+                          }
+                        } else {
+                          return 'Campo obrigatório';
+                        }
+                      },
+                      onChanged: (texto) => nome = texto,
+                      keyboardType: TextInputType.name,
+                      autofocus: true,
+                      decoration: InputDecoration(
+                        labelText: 'Nome completo ',
+                        prefixIcon: Icon(Icons.person),
+                      ),
                     ),
-                    labelText: 'Email',
-                    //border: OutlineInputBorder(),
-                  ),
-                ),
-                TextFormField(
-                  validator: (String? param) {
-                    if (param != null && param.isNotEmpty) {
-                      if (param.length < 15) {
-                        return 'Telefone inválido.';
-                      }
-                    } else {
-                      return 'Informe seu telefone.';
-                    }
-                  },
-                  inputFormatters: [maskNumber],
-                  onChanged: (texto) => telefone = texto,
-                  keyboardType: TextInputType.phone,
-                  autofocus: true,
-                  decoration: InputDecoration(
-                    labelText: 'Telefone',
-                    prefixIcon: Icon(Icons.phone),
-                  ),
-                ),
-                TextFormField(
-                  controller: txtcep,
-                  onChanged: (texto) => cep = texto,
-                  keyboardType: TextInputType.number,
-                  autofocus: true,
-                  decoration: InputDecoration(
-                    labelText: 'Cep',
-                    prefixIcon: Icon(Icons.location_city),
-                  ),
-                ),
-                TextFormField(
-                  onChanged: (texto) => endereco = texto,
-                  keyboardType: TextInputType.text,
-                  autofocus: true,
-                  decoration: InputDecoration(
-                    labelText: 'Endereço',
-                    prefixIcon: Icon(Icons.location_on),
-                  ),
-                ),
-                TextFormField(
-                    validator: (String? texto) {
-                      if (texto != null && texto.isNotEmpty) {
-                        if (texto.length < 8) {
-                          return "Digite uma senha com 6 caracteres ou mais";
+                    TextFormField(
+                      validator: (String? texto) {
+                        String cpf = _cpf.text;
+                        if (GetUtils.isCpf(cpf)) {
+                        } else {
+                          return 'cpf invalido';
                         }
-                      } else {
-                        return "Campo obrigatório";
-                      }
-                    },
-                    onChanged: (texto) => senha = texto,
-                    obscureText: true,
-                    autofocus: true,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.vpn_key_sharp),
-                      labelText: 'Senha',
-                      //border:OutlineInputBorder(),
-                    )),
-                TextFormField(
-                    validator: (String? texto) {
-                      if (texto != null && texto.isNotEmpty) {
-                        if (texto.length < 8) {
-                          return "Digite uma senha com 6 caracteres ou mais";
+                      },
+                      controller: _cpf,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly,
+                        CpfInputFormatter()
+                      ],
+                      onChanged: (texto) => cpf = texto,
+                      keyboardType: TextInputType.number,
+                      autofocus: true,
+                      decoration: InputDecoration(
+                        labelText: 'CPF',
+                        prefixIcon: Icon(Icons.document_scanner_outlined),
+                      ),
+                    ),
+                    TextFormField(
+                      inputFormatters: [maskData],
+                      onChanged: (texto) => nascimento = texto,
+                      keyboardType: TextInputType.number,
+                      autofocus: true,
+                      decoration: InputDecoration(
+                        labelText: 'Data de nascimento',
+                        prefixIcon: Icon(Icons.calendar_today),
+                      ),
+                    ),
+                    TextFormField(
+                      validator: (String? texto) {
+                        if (texto != null && texto.isNotEmpty) {
+                          if (!texto.contains('@') || texto.length < 8) {
+                            return 'Digite um email válido';
+                          }
+                        } else {
+                          return 'Campo obrigatório.';
                         }
-                      } else {
-                        return "Campo obrigatório";
-                      }
-                    },
-                    onChanged: (texto) => senha = texto,
-                    obscureText: true,
-                    autofocus: true,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.vpn_key_sharp),
-                      labelText: 'Confirmação de senha',
-                      //border:OutlineInputBorder(),
-                    )),
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      if (_formKey.currentState?.validate() ?? false) {
-                        print('Login feito');
-                        final user = UsuarioModel(
-                          nome: nome,
-                          endereco: endereco,
-                          cpf: cpf,
-                          nascimento: nascimento,
-                          cep: cep,
-                          telefone: telefone,
-                        );
-                        await userController.signup(email, senha, user);
-                        Navigator.pop(context);
-                      }
-                    },
-                    child: Text("Criar conta"),
-                  ),
-                )
-              ],
+                      },
+                      onChanged: (texto) => email = texto,
+                      style: TextStyle(color: Colors.black),
+                      keyboardType: TextInputType.emailAddress,
+                      autofocus: true,
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.mail_outline,
+                        ),
+                        labelText: 'Email',
+                        //border: OutlineInputBorder(),
+                      ),
+                    ),
+                    TextFormField(
+                      validator: (String? param) {
+                        if (param != null && param.isNotEmpty) {
+                          if (param.length < 15) {
+                            return 'Telefone inválido.';
+                          }
+                        } else {
+                          return 'Informe seu telefone.';
+                        }
+                      },
+                      inputFormatters: [maskNumber],
+                      onChanged: (texto) => telefone = texto,
+                      keyboardType: TextInputType.phone,
+                      autofocus: true,
+                      decoration: InputDecoration(
+                        labelText: 'Telefone',
+                        prefixIcon: Icon(Icons.phone),
+                      ),
+                    ),
+                    TextFormField(
+                      controller: txtcep,
+                      onChanged: (texto) => cep = texto,
+                      keyboardType: TextInputType.number,
+                      autofocus: true,
+                      decoration: InputDecoration(
+                        labelText: 'Cep',
+                        prefixIcon: Icon(Icons.location_city),
+                      ),
+                    ),
+                    TextFormField(
+                      onChanged: (texto) => endereco = texto,
+                      keyboardType: TextInputType.text,
+                      autofocus: true,
+                      decoration: InputDecoration(
+                        labelText: 'Endereço',
+                        prefixIcon: Icon(Icons.location_on),
+                      ),
+                    ),
+                    TextFormField(
+                        validator: (String? texto) {
+                          if (texto != null && texto.isNotEmpty) {
+                            if (texto.length < 8) {
+                              return "Digite uma senha com 6 caracteres ou mais";
+                            }
+                          } else {
+                            return "Campo obrigatório";
+                          }
+                        },
+                        onChanged: (texto) => senha = texto,
+                        obscureText: true,
+                        autofocus: true,
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.vpn_key_sharp),
+                          labelText: 'Senha',
+                          //border:OutlineInputBorder(),
+                        )),
+                    TextFormField(
+                        validator: (String? texto) {
+                          if (texto != null && texto.isNotEmpty) {
+                            if (texto.length < 8) {
+                              return "Digite uma senha com 6 caracteres ou mais";
+                            }
+                          } else {
+                            return "Campo obrigatório";
+                          }
+                        },
+                        onChanged: (texto) => senha = texto,
+                        obscureText: true,
+                        autofocus: true,
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.vpn_key_sharp),
+                          labelText: 'Confirmação de senha',
+                          //border:OutlineInputBorder(),
+                        )),
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          if (_formKey.currentState?.validate() ?? false) {
+                            print('Login feito');
+                            final user = UsuarioModel(
+                              nome: nome,
+                              endereco: endereco,
+                              cpf: cpf,
+                              nascimento: nascimento,
+                              cep: cep,
+                              telefone: telefone,
+                            );
+                            await userController.signup(email, senha, user);
+                            Navigator.pop(context);
+                          }
+                        },
+                        child: Text("Criar conta"),
+                      ),
+                    )
+                  ],
+                ),
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }

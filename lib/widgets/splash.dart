@@ -30,15 +30,14 @@ class _SplashState extends State<Splash> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Column(
-              children: [
-                Image.asset(
+            Expanded(
+              child: Container(
+                color: Color.fromRGBO(224, 170, 255, 1),
+                child: Image.asset(
                   "assets/eletron2.gif",
-                  width: 110,
-                  height: 500,
-                  // fit: BoxFit.fill,
+                  fit: BoxFit.contain,
                 ),
-              ],
+              ),
             ),
             // LinearProgressIndicator(
             //   color: Color(0xFF9d4edd),

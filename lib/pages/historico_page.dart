@@ -41,7 +41,7 @@ class _HistoricoPageState extends State<HistoricoPage> {
           }).toList();
 
           return ListView.builder(
-            itemCount: pedidos.length, // 3
+            itemCount: pedidos.length,
             itemBuilder: (context, index) {
               print(index);
               final produto = pedidos[index];

@@ -18,7 +18,7 @@ class _RenderAvaliacaoWidgetState extends State<RenderAvaliacaoWidget> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        widget.mediaAvaliacao > 0 && widget.mediaAvaliacao <= 0.5
+        widget.avaliacao == 0
             ? Row(
                 children: [
                   FaIcon(
@@ -41,7 +41,39 @@ class _RenderAvaliacaoWidgetState extends State<RenderAvaliacaoWidget> {
                     size: 17,
                     color: Color.fromRGBO(255, 164, 28, 1),
                   ),
-
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: Text('${widget.qtAvaliacoes} avaliações'),
+                  )
+                ],
+              )
+            : SizedBox(
+                width: 0,
+                height: 0,
+              ),
+        widget.mediaAvaliacao > 0 && widget.mediaAvaliacao <= 0.5
+            ? Row(
+                children: [
+                  FaIcon(
+                    FontAwesomeIcons.starHalfAlt,
+                    size: 17,
+                    color: Color.fromRGBO(255, 164, 28, 1),
+                  ),
+                  FaIcon(
+                    FontAwesomeIcons.star,
+                    size: 17,
+                    color: Color.fromRGBO(255, 164, 28, 1),
+                  ),
+                  FaIcon(
+                    FontAwesomeIcons.star,
+                    size: 17,
+                    color: Color.fromRGBO(255, 164, 28, 1),
+                  ),
+                  FaIcon(
+                    FontAwesomeIcons.star,
+                    size: 17,
+                    color: Color.fromRGBO(255, 164, 28, 1),
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 5),
                     child: Text('${widget.qtAvaliacoes} avaliações'),
@@ -90,7 +122,6 @@ class _RenderAvaliacaoWidgetState extends State<RenderAvaliacaoWidget> {
                 width: 0,
                 height: 0,
               ),
-
         widget.mediaAvaliacao > 1 && widget.mediaAvaliacao <= 1.5
             ? Row(
                 children: [
@@ -100,7 +131,7 @@ class _RenderAvaliacaoWidgetState extends State<RenderAvaliacaoWidget> {
                     color: Color.fromRGBO(255, 164, 28, 1),
                   ),
                   FaIcon(
-                    FontAwesomeIcons.star,
+                    FontAwesomeIcons.starHalfAlt,
                     size: 17,
                     color: Color.fromRGBO(255, 164, 28, 1),
                   ),
@@ -162,7 +193,6 @@ class _RenderAvaliacaoWidgetState extends State<RenderAvaliacaoWidget> {
                 width: 0,
                 height: 0,
               ),
-
         widget.mediaAvaliacao > 2 && widget.mediaAvaliacao <= 2.5
             ? Row(
                 children: [
@@ -177,7 +207,7 @@ class _RenderAvaliacaoWidgetState extends State<RenderAvaliacaoWidget> {
                     color: Color.fromRGBO(255, 164, 28, 1),
                   ),
                   FaIcon(
-                    FontAwesomeIcons.star,
+                    FontAwesomeIcons.starHalfAlt,
                     size: 17,
                     color: Color.fromRGBO(255, 164, 28, 1),
                   ),
@@ -253,7 +283,7 @@ class _RenderAvaliacaoWidgetState extends State<RenderAvaliacaoWidget> {
                     color: Color.fromRGBO(255, 164, 28, 1),
                   ),
                   FaIcon(
-                    FontAwesomeIcons.star,
+                    FontAwesomeIcons.starHalfAlt,
                     size: 17,
                     color: Color.fromRGBO(255, 164, 28, 1),
                   ),
@@ -352,27 +382,27 @@ class _RenderAvaliacaoWidgetState extends State<RenderAvaliacaoWidget> {
             ? Row(
                 children: [
                   FaIcon(
-                    FontAwesomeIcons.star,
+                    FontAwesomeIcons.solidStar,
                     size: 17,
                     color: Color.fromRGBO(255, 164, 28, 1),
                   ),
                   FaIcon(
-                    FontAwesomeIcons.star,
+                    FontAwesomeIcons.solidStar,
                     size: 17,
                     color: Color.fromRGBO(255, 164, 28, 1),
                   ),
                   FaIcon(
-                    FontAwesomeIcons.star,
+                    FontAwesomeIcons.solidStar,
                     size: 17,
                     color: Color.fromRGBO(255, 164, 28, 1),
                   ),
                   FaIcon(
-                    FontAwesomeIcons.star,
+                    FontAwesomeIcons.solidStar,
                     size: 17,
                     color: Color.fromRGBO(255, 164, 28, 1),
                   ),
                   FaIcon(
-                    FontAwesomeIcons.star,
+                    FontAwesomeIcons.solidStar,
                     size: 17,
                     color: Color.fromRGBO(255, 164, 28, 1),
                   ),
