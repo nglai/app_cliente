@@ -127,12 +127,50 @@ class _HistoricoPageState extends State<HistoricoPage> {
                             Expanded(
                               child: Container(
                                 child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      'Status: Entregue',
-                                      style: TextStyle(
-                                        fontSize: 20,
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 5),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Status:',
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                          Text(
+                                            'Solicitado',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 5),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Entrega em:',
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                          Text(
+                                            '22/09/2021',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ],

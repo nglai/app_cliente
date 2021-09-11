@@ -62,10 +62,9 @@ class _AvaliacaoProdutoState extends State<AvaliacaoProduto> {
         final produto = ProdutoModel.fromMap(snapshot.data!.data()!);
 
         return AlertDialog(
-          title: const Text('AlertDialog Title'),
-          content: const Text('AlertDialog description'),
           actions: <Widget>[
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 20),
@@ -86,35 +85,40 @@ class _AvaliacaoProdutoState extends State<AvaliacaoProduto> {
                 ),
               ],
             ),
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'Cancel'),
-              child: const Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () async {
-                final updateProduto = ProdutoModel(
-                  keyProduto: produto.keyProduto,
-                  nome: produto.nome,
-                  preco: produto.preco,
-                  categoria: produto.categoria,
-                  descricao: produto.descricao,
-                  keyVendedor: produto.keyVendedor,
-                  nomeVendedor: produto.nomeVendedor,
-                  cor: produto.cor,
-                  promocao: produto.promocao,
-                  precoDesconto: produto.precoDesconto,
-                  quantidade: produto.quantidade,
-                  avaliacao: produto.avaliacao! + nota,
-                  quantidadeAvaliacoes: produto.quantidadeAvaliacoes! + 1,
-                  imagem: produto.imagem,
-                ).toMap();
-                await FirebaseFirestore.instance
-                    .collection('produtos')
-                    .doc(widget.keyProduto)
-                    .update(updateProduto);
-                Navigator.pop(context, 'Avaliar');
-              },
-              child: const Text('Avaliar'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'Cancel'),
+                  child: const Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () async {
+                    final updateProduto = ProdutoModel(
+                      keyProduto: produto.keyProduto,
+                      nome: produto.nome,
+                      preco: produto.preco,
+                      categoria: produto.categoria,
+                      descricao: produto.descricao,
+                      keyVendedor: produto.keyVendedor,
+                      nomeVendedor: produto.nomeVendedor,
+                      cor: produto.cor,
+                      promocao: produto.promocao,
+                      precoDesconto: produto.precoDesconto,
+                      quantidade: produto.quantidade,
+                      avaliacao: produto.avaliacao! + nota,
+                      quantidadeAvaliacoes: produto.quantidadeAvaliacoes! + 1,
+                      imagem: produto.imagem,
+                    ).toMap();
+                    await FirebaseFirestore.instance
+                        .collection('produtos')
+                        .doc(widget.keyProduto)
+                        .update(updateProduto);
+                    Navigator.pop(context, 'Avaliar');
+                  },
+                  child: const Text('Avaliar'),
+                ),
+              ],
             ),
           ],
         );
