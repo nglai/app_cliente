@@ -14,21 +14,23 @@ class SplashLoadingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Material(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/eletron2.gif',
-              width: 110,
-              height: 500,
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Container(
+              color: Color.fromRGBO(224, 170, 255, 1),
+              child: Image.asset(
+                "assets/eletron2.gif",
+                fit: BoxFit.contain,
+              ),
             ),
-            LinearProgressIndicator(
-              color: Color(0xFF9d4edd),
-            ),
-          ],
-        ),
+          ),
+          LinearProgressIndicator(
+            color: Color(0xFF9d4edd),
+          ),
+        ],
       ),
     );
   }
