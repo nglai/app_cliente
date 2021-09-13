@@ -211,19 +211,25 @@ class _ProdutoPageState extends State<ProdutoPage> {
                           title: const Text('Produto adicionado ao carrinho'),
                           content: const Text('Deseja continuar comprando?'),
                           actions: <Widget>[
-                            TextButton(
-                              onPressed: () => Navigator.pop(context, 'Cancel'),
-                              child: const Text('Continuar comprando'),
-                            ),
-                            TextButton(
-                              onPressed: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => MenuPage(),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.pop(context, 'Cancel'),
+                                  child: const Text('Continuar comprando'),
                                 ),
-                              ),
-                              child: const Text('Ir para o carrinho'),
-                            ),
+                                TextButton(
+                                  onPressed: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MenuPage(),
+                                    ),
+                                  ),
+                                  child: const Text('Retornar à home'),
+                                ),
+                              ],
+                            )
                           ],
                         ),
                       );

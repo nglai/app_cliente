@@ -45,7 +45,7 @@ class _ProdutoCarrinhoWidgetState extends State<ProdutoCarrinhoWidget> {
                         boxShadow: [
                           BoxShadow(
                             color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 5,
+                            spreadRadius: 2,
                             blurRadius: 7,
                             offset: Offset(0, 3), // changes position of shadow
                           ),
@@ -59,18 +59,20 @@ class _ProdutoCarrinhoWidgetState extends State<ProdutoCarrinhoWidget> {
                               ? Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Container(
-                                      width: 300,
-                                      height: 300,
-                                      child: Image.memory(
-                                        produto.imagem!,
-                                        width: 72,
-                                        fit: BoxFit.contain,
+                                    Expanded(
+                                      child: Container(
+                                        padding: EdgeInsets.all(10),
+                                        child: Image.memory(
+                                          produto.imagem!,
+                                          width: 72,
+                                          fit: BoxFit.contain,
+                                        ),
                                       ),
                                     ),
                                   ],
                                 )
                               : Container(
+                                  padding: EdgeInsets.all(10),
                                   child: Icon(Icons.no_photography),
                                   width: 72,
                                   height: double.maxFinite,
@@ -79,9 +81,10 @@ class _ProdutoCarrinhoWidgetState extends State<ProdutoCarrinhoWidget> {
                           Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: Color.fromRGBO(224, 170, 255, 1),
+                              color: Color.fromRGBO(245, 243, 244, 1),
                             ),
                             padding: EdgeInsets.all(15),
+                            margin: EdgeInsets.only(top: 15),
                             child: Column(
                               children: [
                                 Row(
@@ -89,72 +92,167 @@ class _ProdutoCarrinhoWidgetState extends State<ProdutoCarrinhoWidget> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Expanded(
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            'Produto: ',
-                                            style: TextStyle(fontSize: 18),
+                                      child: Container(
+                                        margin: EdgeInsets.only(bottom: 5),
+                                        child: Text(
+                                          'Produto: ',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            color:
+                                                Color.fromRGBO(157, 78, 221, 1),
                                           ),
-                                          Text(
-                                            '${produto.nome}',
-                                            style: TextStyle(fontSize: 16),
-                                          ),
-                                        ],
+                                        ),
                                       ),
                                     ),
-                                    InkWell(
-                                      onTap: () {
-                                        pedidoController.removeProduto(
-                                            pedidoController.pedido[index]);
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        margin: EdgeInsets.only(bottom: 10),
+                                        child: Text(
+                                          '${produto.nome}',
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              color: Color.fromRGBO(
+                                                  33, 37, 41, 1)),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        margin: EdgeInsets.only(bottom: 5),
+                                        child: Text(
+                                          'Preço por unidade: ',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            color:
+                                                Color.fromRGBO(157, 78, 221, 1),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        margin: EdgeInsets.only(bottom: 10),
+                                        child: Text(
+                                          'R\$ ${produto.preco}',
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              color: Color.fromRGBO(
+                                                  33, 37, 41, 1)),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        margin: EdgeInsets.only(bottom: 5),
+                                        child: Text(
+                                          'Quantidade: ',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            color:
+                                                Color.fromRGBO(157, 78, 221, 1),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        margin: EdgeInsets.only(bottom: 10),
+                                        child: Text(
+                                          '${produto.quantidadeProduto}',
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              color: Color.fromRGBO(
+                                                  33, 37, 41, 1)),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        margin: EdgeInsets.only(bottom: 5),
+                                        child: Text(
+                                          'Preço total: ',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            color:
+                                                Color.fromRGBO(157, 78, 221, 1),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.only(bottom: 10),
+                                      child: Text(
+                                        'R\$${produto.precoTotal}',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            color:
+                                                Color.fromRGBO(33, 37, 41, 1)),
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.only(bottom: 10),
+                                      child: InkWell(
+                                        onTap: () {
+                                          pedidoController.removeProduto(
+                                              pedidoController.pedido[index]);
 
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            content: Text('Produto removido'),
-                                            duration: Duration(seconds: 2),
-                                          ),
-                                        );
-                                      },
-                                      child: FaIcon(
-                                        FontAwesomeIcons.solidTrashAlt,
-                                        size: 15,
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text('Produto removido'),
+                                              duration: Duration(seconds: 2),
+                                            ),
+                                          );
+                                        },
+                                        child: FaIcon(
+                                          FontAwesomeIcons.trashAlt,
+                                          size: 18,
+                                          color:
+                                              Color.fromRGBO(157, 78, 221, 1),
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      'Preço por unidade: ',
-                                      style: TextStyle(fontSize: 18),
-                                    ),
-                                    Text(
-                                      'R\$ ${produto.preco}',
-                                      style: TextStyle(fontSize: 16),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      'Quantidade: ',
-                                      style: TextStyle(fontSize: 18),
-                                    ),
-                                    Text(
-                                      '${produto.quantidadeProduto}',
-                                      style: TextStyle(fontSize: 16),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      'Preço total: ',
-                                      style: TextStyle(fontSize: 18),
-                                    ),
-                                    Text(
-                                      'R\$${produto.precoTotal}',
-                                      style: TextStyle(fontSize: 16),
                                     ),
                                   ],
                                 ),

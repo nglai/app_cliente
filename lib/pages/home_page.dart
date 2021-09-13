@@ -51,7 +51,6 @@ class _HomePageState extends State<HomePage> {
                       options: CarouselOptions(
                         height: 350,
                         autoPlay: true,
-                        enlargeCenterPage: true,
                         autoPlayInterval: Duration(seconds: 4),
                         onPageChanged: (index, reason) =>
                             setState(() => activeIndex = index),
@@ -72,7 +71,7 @@ class _HomePageState extends State<HomePage> {
                             );
                           },
                           child: Padding(
-                            padding: const EdgeInsets.all(12.0),
+                            padding: const EdgeInsets.all(10.0),
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
@@ -80,7 +79,7 @@ class _HomePageState extends State<HomePage> {
                                 boxShadow: [
                                   BoxShadow(
                                     color: Colors.grey.withOpacity(0.5),
-                                    spreadRadius: 5,
+                                    spreadRadius: 2,
                                     blurRadius: 7,
                                     offset: Offset(
                                         0, 3), // changes position of shadow
@@ -110,9 +109,16 @@ class _HomePageState extends State<HomePage> {
                                   SizedBox(
                                     height: 12,
                                   ),
-                                  Text(
-                                    produto.nome!,
-                                    style: TextStyle(fontSize: 22),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          produto.nome!,
+                                          style: TextStyle(fontSize: 22),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                   SizedBox(
                                     height: 18,
@@ -154,7 +160,7 @@ class _HomePageState extends State<HomePage> {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     'DESTAQUES',
-                    style: Theme.of(context).textTheme.headline4,
+                    style: TextStyle(fontSize: 23),
                   ),
                 ),
                 Padding(
