@@ -1,6 +1,7 @@
 import 'package:app_cliente/controllers/user_controller.dart';
 import 'package:app_cliente/models/usuario_model.dart';
 import 'package:app_cliente/pages/historico_page.dart';
+import 'package:app_cliente/pages/login_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -74,11 +75,13 @@ class _PerfilState extends State<Perfil> {
                     ),
                     Text(
                       "Olá!",
-                      style: textStyles.headline5, textAlign: TextAlign.center,
+                      style: textStyles.headline5,
+                      textAlign: TextAlign.center,
                     ),
                     Text(
                       usuarios.nome,
-                      style: textStyles.headline5, textAlign: TextAlign.center,
+                      style: textStyles.headline5,
+                      textAlign: TextAlign.center,
                     ),
                   ],
                 ),
@@ -111,6 +114,8 @@ class _PerfilState extends State<Perfil> {
             title: Text('Sair'),
             onTap: () async {
               await userController.logout();
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => LoginPage()));
             },
           )
         ],

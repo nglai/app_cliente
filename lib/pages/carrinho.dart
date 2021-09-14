@@ -18,14 +18,8 @@ class _CarrinhoState extends State<Carrinho> {
     listen: false,
   );
 
-  double valorTotal = 0.0;
-
   @override
   Widget build(BuildContext context) {
-    pedidoController.pedido.forEach((element) {
-      valorTotal = valorTotal + element['precoTotal'];
-    });
-
     return Scaffold(
       body: Container(
         color: Colors.white,
@@ -40,31 +34,6 @@ class _CarrinhoState extends State<Carrinho> {
                     physics: BouncingScrollPhysics(),
                     children: [
                       ProdutoCarrinhoWidget(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 5,
-                                  blurRadius: 7,
-                                  offset: Offset(
-                                      0, 3), // changes position of shadow
-                                ),
-                              ],
-                            ),
-                            child: Text(
-                              'Valor total do pedido: R\$ ${valorTotal.toStringAsFixed(2)}',
-                              style: TextStyle(fontSize: 18),
-                            ),
-                          ),
-                        ],
-                      ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: 10, horizontal: 70),
